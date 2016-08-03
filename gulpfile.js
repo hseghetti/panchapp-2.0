@@ -5,9 +5,12 @@ var concat = require('gulp-concat');
 var fs = require('fs');
 var gulp = require('gulp');
 var jshint = require("gulp-jshint");
+var nodemon = require('gulp-nodemon');
 var reactify = require('reactify');
+var rimraf = require('rimraf');
 var sass = require('gulp-sass');
 var source = require('vinyl-source-stream');
+var util = require('gulp-util');
 
 // PRIVATE VARS
 var list = fs.readdirSync('./app/components');
@@ -28,6 +31,7 @@ gulp.task('bundle', function () {
 gulp.task('sass', function () {
     gulp.src('./app/components/**/*.scss')
         .pipe(sass())
+        .pipe(concat('styles.css'))
         .pipe(gulp.dest('./app/dist'));
 });
 
@@ -36,9 +40,26 @@ gulp.task('copy', ['bundle', 'sass'], function () {
         .pipe(gulp.dest('app/dist'));
 });
 
-gulp.task('default',['copy'], function () {
+gulp.task('rimraf', function () {
+    rimraf.sync('app/dist');
+});
+
+gulp.task('start-server', ['copy'], function () {
+    nodemon({
+        script: 'server/server.js',
+        env: {'NODE_ENV': 'development'}
+    });
+});
+
+gulp.task('watch', ['build', 'start-server'], function () {
+    gulp.watch('app/components/**/*', ['build']);
+})
+
+gulp.task('build',['rimraf', 'copy'], function () {
    console.log('Gulp completed...');
 });
+
+gulp.task('default', ['watch']);
 
 var filterScss = function (list) {
     return _.filter(list, function (item) {
