@@ -6,7 +6,6 @@ var cleanCSS = require('gulp-clean-css');
 var concat = require('gulp-concat');
 var fs = require('fs');
 var gulp = require('gulp');
-var jshint = require("gulp-jshint");
 var nodemon = require('gulp-nodemon');
 var reactify = require('reactify');
 var rimraf = require('rimraf');
