@@ -1,6 +1,7 @@
 // VENDOR LIBS
 var _ = require('lodash');
 var browserify = require('browserify');
+var buffer = require('vinyl-buffer');
 var concat = require('gulp-concat');
 var fs = require('fs');
 var gulp = require('gulp');
@@ -10,6 +11,7 @@ var reactify = require('reactify');
 var rimraf = require('rimraf');
 var sass = require('gulp-sass');
 var source = require('vinyl-source-stream');
+var uglify = require('gulp-uglify');
 var util = require('gulp-util');
 
 // PRIVATE VARS
@@ -22,9 +24,8 @@ gulp.task('bundle', function () {
     }).transform(reactify)
         .bundle()
         .pipe(source('main.js'))
-        .pipe(jshint())
-        .pipe(jshint.reporter("jshint-stylish", {verbose: true}))
-        .pipe(jshint.reporter("fail"))
+        .pipe(buffer())
+        .pipe(uglify())
         .pipe(gulp.dest('app/dist'));
 });
 
