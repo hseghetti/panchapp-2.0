@@ -2,6 +2,7 @@
 var _ = require('lodash');
 var browserify = require('browserify');
 var buffer = require('vinyl-buffer');
+var cleanCSS = require('gulp-clean-css');
 var concat = require('gulp-concat');
 var fs = require('fs');
 var gulp = require('gulp');
@@ -33,6 +34,7 @@ gulp.task('sass', function () {
     gulp.src('./app/components/**/*.scss')
         .pipe(sass())
         .pipe(concat('styles.css'))
+        .pipe(cleanCSS())
         .pipe(gulp.dest('./app/dist'));
 });
 
