@@ -13,10 +13,8 @@ var Button = React.createClass({
                     {this.props.value || 'Boton'}
                 </button>
             </div>
-
         );
     }
-
 });
 
 module.exports = Button;
