@@ -28,14 +28,14 @@ gulp.task('js-lint', function () {
 
 gulp.task('bundle', function () {
     return browserify({
-            entries: './app/main.js',
-            debug: true
-        }).transform(reactify)
-            .bundle()
-            .pipe(source('main.js'))
-            .pipe(buffer())
-            .pipe(uglify())
-            .pipe(gulp.dest('app/dist'));
+        entries: './app/main.js',
+        debug: true
+    }).transform(reactify)
+        .bundle()
+        .pipe(source('main.js'))
+        .pipe(buffer())
+        .pipe(uglify())
+        .pipe(gulp.dest('app/dist'));
 });
 
 gulp.task('sass', function () {
