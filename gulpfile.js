@@ -1,21 +1,30 @@
 // VENDOR LIBS
-var _ = require('lodash');
 var browserify = require('browserify');
 var buffer = require('vinyl-buffer');
-var cleanCSS = require('gulp-clean-css');
+var cleancss = require('gulp-clean-css');
 var concat = require('gulp-concat');
 var fs = require('fs');
 var gulp = require('gulp');
+var jshint = require('gulp-jshint');
 var nodemon = require('gulp-nodemon');
+var react = require('gulp-react');
 var reactify = require('reactify');
 var rimraf = require('rimraf');
 var sass = require('gulp-sass');
+var scsslint = require('gulp-scss-lint');
 var source = require('vinyl-source-stream');
+var stylish = require('jshint-stylish');
 var uglify = require('gulp-uglify');
-var util = require('gulp-util');
 
 // PRIVATE VARS
 var list = fs.readdirSync('./app/components');
+
+gulp.task('js-lint', function () {
+    return gulp.src('./app/components/**/*.js')
+        .pipe(react())
+        .pipe(jshint())
+        .pipe(jshint.reporter(stylish));
+});
 
 gulp.task('bundle', function () {
     return browserify({
@@ -31,13 +40,14 @@ gulp.task('bundle', function () {
 
 gulp.task('sass', function () {
     gulp.src('./app/components/**/*.scss')
+        .pipe(scsslint({config: 'lint.yml'}))
         .pipe(sass())
         .pipe(concat('styles.css'))
-        .pipe(cleanCSS())
+        .pipe(cleancss())
         .pipe(gulp.dest('./app/dist'));
 });
 
-gulp.task('copy', ['bundle', 'sass'], function () {
+gulp.task('copy', ['js-lint', 'bundle', 'sass'], function () {
     return gulp.src(['app/index.html','app/lib/bootstrap-css/css/bootstrap.min.css','app/style.css'])
         .pipe(gulp.dest('app/dist'));
 });
@@ -62,15 +72,3 @@ gulp.task('build',['rimraf', 'copy'], function () {
 });
 
 gulp.task('default', ['watch']);
-
-var filterScss = function (list) {
-    return _.filter(list, function (item) {
-        return item.indexOf('.scss') !== -1;
-    });
-};
-
-var filterJs = function (list) {
-    return _.filter(list, function (item) {
-        return item.indexOf('.js') !== -1;
-    });
-};
