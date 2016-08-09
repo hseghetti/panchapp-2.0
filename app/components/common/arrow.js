@@ -4,30 +4,25 @@ var classNames = require('classnames');
 
 var Arrow = React.createClass({
 
-    getInitialState: function() {
-        return {
-            drawerOpen: true
-        };
+    contextTypes: {
+        sideBarOpened: React.PropTypes.bool
     },
 
     render: function() {
-        return <div className={this.getClass()} onClick={this.handleArrowClick}/>;
+        return <div className={this.getClass()} onClick={this.props.onClickCb} />;
     },
 
     getClass: function () {
-        return classNames({
+        var classes = {
             arrow: true,
-            arrow_left: this.state.drawerOpen,
-            arrow_right: !this.state.drawerOpen
-        });
-    },
+            arrow_left: this.context.sideBarOpened,
+            arrow_right: !this.context.sideBarOpened
+        };
 
-    handleArrowClick: function () {
-        this.setState({
-            drawerOpen: !this.state.drawerOpen
-        });
+        classes[this.props.className] = (this.props.className);
+
+        return classNames(classes);
     }
-
 });
 
 module.exports = Arrow;
