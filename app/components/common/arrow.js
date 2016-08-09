@@ -11,9 +11,7 @@ var Arrow = React.createClass({
     },
 
     render: function() {
-        return (
-            <div className={this.getClass()} onClick={this.handleArrowClick}/>
-        );
+        return <div className={this.getClass()} onClick={this.handleArrowClick}/>;
     },
 
     getClass: function () {
