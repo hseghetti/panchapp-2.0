@@ -13,10 +13,10 @@
         border-top: 20px solid transparent;
         height: 0;
         width: 0;
-    }
 
-    &:hover {
-        animation: shake .82s cubic-bezier(.36, .07, .19, .97) both;
+        &:hover {
+            animation: shake .82s cubic-bezier(.36, .07, .19, .97) both;
+        }
     }
 }
 
