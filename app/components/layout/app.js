@@ -2,16 +2,17 @@
 var React = require('react');
 
 // COMMON COMPONENTS
+var Arrow = require('../common/arrow');
 var Button = require('../common/button');
+var Header = require('../common/header');
 
 var App = React.createClass({
 
     render: function() {
         return (
-            //ACA VA LA APP
             <div>
-                VAMO A CALMARNO
-                <Button value="Botonson"/>
+                <Header />
+                <Arrow />
             </div>
         );
     }

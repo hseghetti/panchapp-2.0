@@ -1,0 +1,22 @@
+.arrow {
+    cursor: pointer;
+    left: 4px;
+    position: absolute;
+    top: 25px;
+
+    &_left {
+        border-bottom: 20px solid transparent;
+        border-right: 20px solid #fff;
+        border-top: 20px solid transparent;
+        height: 0;
+        width: 0;
+    }
+
+    &_right {
+        border-bottom: 20px solid transparent;
+        border-left: 20px solid #fff;
+        border-top: 20px solid transparent;
+        height: 0;
+        width: 0;
+    }
+}
