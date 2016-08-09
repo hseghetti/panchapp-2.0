@@ -56,19 +56,19 @@ gulp.task('rimraf', function () {
     rimraf.sync('app/dist');
 });
 
-gulp.task('start-server', ['copy'], function () {
+gulp.task('start-server', function () {
     nodemon({
         script: 'server/server.js',
         env: {'NODE_ENV': 'development'}
     });
 });
 
-gulp.task('watch', ['build', 'start-server'], function () {
-    gulp.watch('app/components/**/*', ['build']);
+gulp.task('watch', ['copy'], function () {
+    gulp.watch('app/components/**/*', ['copy']);
 })
 
-gulp.task('build',['rimraf', 'copy'], function () {
+gulp.task('build',['rimraf', 'copy', 'start-server', 'watch'], function () {
    console.log('Gulp completed...');
 });
 
-gulp.task('default', ['watch']);
+gulp.task('default', ['build']);
