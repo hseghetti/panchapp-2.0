@@ -20,7 +20,7 @@ var uglify = require('gulp-uglify');
 var list = fs.readdirSync('./app/components');
 
 gulp.task('js-lint', function () {
-    return gulp.src('./app/components/**/*.js')
+    gulp.src('./app/components/**/*.js')
         .pipe(react())
         .pipe(jshint())
         .pipe(jshint.reporter(stylish));
@@ -64,11 +64,11 @@ gulp.task('start-server', function () {
 });
 
 gulp.task('watch', ['copy'], function () {
-    gulp.watch('app/components/**/*', ['copy']);
+    gulp.watch(['app/**/*', '!app/dist/**/*'], ['copy']);
 })
 
-gulp.task('build',['rimraf', 'copy', 'start-server', 'watch'], function () {
+gulp.task('build',['rimraf', 'watch'], function () {
    console.log('Gulp completed...');
 });
 
-gulp.task('default', ['build']);
+gulp.task('default', ['build', 'start-server']);
