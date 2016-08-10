@@ -29,8 +29,6 @@ class App extends React.Component {
     }
 
     render() {
-        var useless = null;
-
         return (
             <div className="app">
                 <div className={this.getContainerClass()}>
