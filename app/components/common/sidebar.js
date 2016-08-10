@@ -1,25 +1,27 @@
 // VENDOR LIBS
-var React = require('react');
-var classNames = require('classnames');
+import React from 'react';
+import classNames from 'classnames';
 
-var Sidebar = React.createClass({
+class Sidebar extends React.Component {
 
-    contextTypes: {
-        sideBarOpened: React.PropTypes.bool
-    },
+    constructor() {
+        super();
+        this.constructor.contextTypes = {
+            sideBarOpened: React.PropTypes.bool
+        };
+        this.getClass.bind(this);
+    }
 
-    render: function() {
-        return (
-            <div className={this.getClass()} />
-        );
-    },
+    render() {
+        return <div className={this.getClass()} />;
+    }
 
-    getClass: function () {
+    getClass () {
         return classNames({
             sidebar: true,
             sidebar_displayed: this.context.sideBarOpened
         });
     }
-});
+}
 
-module.exports = Sidebar;
+export default Sidebar;

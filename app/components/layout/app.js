@@ -1,55 +1,59 @@
 // VENDOR LIBS
-var React = require('react');
-var classNames = require('classnames');
+import React from 'react';
+import classNames from 'classnames';
 
 // COMMON COMPONENTS
-var Arrow = require('../common/arrow');
-var Button = require('../common/button');
-var Header = require('../common/header');
-var Sidebar = require('../common/sidebar');
+import Arrow from '../common/arrow';
+import Button from '../common/button';
+import Header from '../common/header';
+import Sidebar from '../common/sidebar';
 
-var App = React.createClass({
+class App extends React.Component {
 
-    childContextTypes: {
-        sideBarOpened: React.PropTypes.bool
-    },
-
-    getInitialState: function() {
-        return {
+    constructor() {
+        super();
+        this.constructor.childContextTypes = {
+            sideBarOpened: React.PropTypes.bool
+        };
+        this.getChildContext.bind(this);
+        this.getContainerClass.bind(this);
+        this.state = {
             sideBarOpened: false
         };
-    },
+    }
 
-    getChildContext: function () {
+    getChildContext() {
         return {
             sideBarOpened: this.state.sideBarOpened
         };
-    },
+    }
 
-    render: function() {
+    render() {
+        var useless = null;
+
         return (
             <div className="app">
                 <div className={this.getContainerClass()}>
                     <Header />
-                    <Arrow className="app--arrow" onClickCb={this.toggleSideBar}/>
+                    <Arrow className="app--arrow" onClickCb={this.toggleSideBar.bind(this)}/>
                 </div>
                 <Sidebar />
             </div>
         );
-    },
+    }
 
-    getContainerClass: function () {
+    getContainerClass() {
         return classNames({
             'app--main-content': true,
             'app--main-content_slide': this.state.sideBarOpened
         });
-    },
+    }
 
-    toggleSideBar: function () {
+    toggleSideBar() {
         this.setState({
             sideBarOpened: !this.state.sideBarOpened
         });
     }
-});
+}
 
-module.exports = App;
+export default App;

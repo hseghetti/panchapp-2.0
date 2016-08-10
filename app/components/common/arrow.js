@@ -1,18 +1,22 @@
 // VENDOR LIBS
-var React = require('react');
-var classNames = require('classnames');
+import React from 'react';
+import classNames from 'classnames';
 
-var Arrow = React.createClass({
+class Arrow extends React.Component {
 
-    contextTypes: {
-        sideBarOpened: React.PropTypes.bool
-    },
+    constructor() {
+        super();
+        this.constructor.contextTypes = {
+            sideBarOpened: React.PropTypes.bool
+        }
+        this.getClass.bind(this);
+    }
 
-    render: function() {
+    render() {
         return <div className={this.getClass()} onClick={this.props.onClickCb} />;
-    },
+    }
 
-    getClass: function () {
+    getClass() {
         var classes = {
             arrow: true,
             arrow_left: this.context.sideBarOpened,
@@ -23,6 +27,6 @@ var Arrow = React.createClass({
 
         return classNames(classes);
     }
-});
+}
 
-module.exports = Arrow;
+export default Arrow;
