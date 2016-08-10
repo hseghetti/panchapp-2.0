@@ -1,12 +1,8 @@
-var React = require('react');
+import React from 'react';
 
-var Button = React.createClass({
+class Button extends React.Component {
 
-    propTypes: {
-        value: React.PropTypes.string
-    },
-
-    render: function() {
+    render() {
         return (
             <div>
                 <button>
@@ -15,6 +11,8 @@ var Button = React.createClass({
             </div>
         );
     }
-});
+}
 
-module.exports = Button;
+Button.propTypes = {value: React.PropTypes.string}
+
+export default Button;

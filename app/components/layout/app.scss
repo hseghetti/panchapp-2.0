@@ -1,4 +1,24 @@
 body {
-    background-color: #636363;
+    background-color: #222;
     margin: 0;
+}
+
+.app {
+
+    &--arrow {
+        cursor: pointer;
+        left: 6px;
+        position: absolute;
+        top: 25px;
+    }
+
+    &--main-content {
+        transform: translateX(0);
+        transition: .5s;
+
+        &_slide {
+            transform: translateX(100px);
+            transition: .5s;
+        }
+    }
 }

@@ -1,21 +1,59 @@
 // VENDOR LIBS
-var React = require('react');
+import React from 'react';
+import classNames from 'classnames';
 
 // COMMON COMPONENTS
-var Arrow = require('../common/arrow');
-var Button = require('../common/button');
-var Header = require('../common/header');
+import Arrow from '../common/arrow';
+import Button from '../common/button';
+import Header from '../common/header';
+import Sidebar from '../common/sidebar';
 
-var App = React.createClass({
+class App extends React.Component {
 
-    render: function() {
+    constructor() {
+        super();
+        this.constructor.childContextTypes = {
+            sideBarOpened: React.PropTypes.bool
+        };
+        this.getChildContext.bind(this);
+        this.getContainerClass.bind(this);
+        this.state = {
+            sideBarOpened: false
+        };
+    }
+
+    getChildContext() {
+        return {
+            sideBarOpened: this.state.sideBarOpened
+        };
+    }
+
+    render() {
+        var useless = null;
+
         return (
-            <div>
-                <Header />
-                <Arrow />
+            <div className="app">
+                <div className={this.getContainerClass()}>
+                    <Header />
+                    <Arrow className="app--arrow" onClickCb={this.toggleSideBar.bind(this)}/>
+                </div>
+                <Sidebar />
             </div>
         );
     }
-});
 
-module.exports = App;
+    getContainerClass() {
+        return classNames({
+            'app--main-content': true,
+            'app--main-content_slide': this.state.sideBarOpened
+        });
+    }
+
+    toggleSideBar() {
+        this.setState({
+            sideBarOpened: !this.state.sideBarOpened
+        });
+    }
+}
+
+export default App;

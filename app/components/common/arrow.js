@@ -1,33 +1,32 @@
 // VENDOR LIBS
-var React = require('react');
-var classNames = require('classnames');
+import React from 'react';
+import classNames from 'classnames';
 
-var Arrow = React.createClass({
+class Arrow extends React.Component {
 
-    getInitialState: function() {
-        return {
-            drawerOpen: true
-        };
-    },
-
-    render: function() {
-        return <div className={this.getClass()} onClick={this.handleArrowClick}/>;
-    },
-
-    getClass: function () {
-        return classNames({
-            arrow: true,
-            arrow_left: this.state.drawerOpen,
-            arrow_right: !this.state.drawerOpen
-        });
-    },
-
-    handleArrowClick: function () {
-        this.setState({
-            drawerOpen: !this.state.drawerOpen
-        });
+    constructor() {
+        super();
+        this.constructor.contextTypes = {
+            sideBarOpened: React.PropTypes.bool
+        }
+        this.getClass.bind(this);
     }
 
-});
+    render() {
+        return <div className={this.getClass()} onClick={this.props.onClickCb} />;
+    }
 
-module.exports = Arrow;
+    getClass() {
+        var classes = {
+            arrow: true,
+            arrow_left: this.context.sideBarOpened,
+            arrow_right: !this.context.sideBarOpened
+        };
+
+        classes[this.props.className] = (this.props.className);
+
+        return classNames(classes);
+    }
+}
+
+export default Arrow;
