@@ -4,7 +4,6 @@ import classNames from 'classnames';
 
 // COMMON COMPONENTS
 import Arrow from '../common/arrow';
-import Button from '../common/button';
 import Header from '../common/header';
 import Sidebar from '../common/sidebar';
 

@@ -3,6 +3,7 @@ var browserify = require('browserify');
 var buffer = require('vinyl-buffer');
 var cleancss = require('gulp-clean-css');
 var concat = require('gulp-concat');
+var eslint = require('gulp-eslint');
 var fs = require('fs');
 var gulp = require('gulp');
 var rimraf = require('rimraf');
@@ -13,6 +14,12 @@ var uglify = require('gulp-uglify');
 
 // PRIVATE VARS
 var list = fs.readdirSync('./app/components');
+
+gulp.task('lint', function () {
+    return gulp.src(['./app/**/*.js','!./node_modules/**', '!./app/dist/**'])
+        .pipe(eslint())
+        .pipe(eslint.format())
+});
 
 gulp.task('bundle', function () {
     return browserify({entries: './app/main.js', debug: true})
@@ -33,7 +40,7 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('./app/dist'));
 });
 
-gulp.task('copy', ['bundle', 'sass'], function () {
+gulp.task('copy', ['lint', 'bundle', 'sass'], function () {
     return gulp.src(['app/index.html','app/lib/bootstrap-css/css/bootstrap.min.css','app/style.css'])
         .pipe(gulp.dest('app/dist'));
 });

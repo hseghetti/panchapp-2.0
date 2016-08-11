@@ -8,7 +8,7 @@ class Arrow extends React.Component {
         super();
         this.constructor.contextTypes = {
             sideBarOpened: React.PropTypes.bool
-        }
+        };
         this.getClass.bind(this);
     }
 
