@@ -33,6 +33,7 @@ class App extends React.Component {
                 <div className={this.getContainerClass()}>
                     <Header />
                     <Arrow className="app--arrow" onClickCb={this.toggleSideBar.bind(this)}/>
+                    {this.props.children}
                 </div>
                 <Sidebar />
             </div>
