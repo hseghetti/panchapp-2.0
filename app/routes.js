@@ -1,6 +1,6 @@
 // VENDOR LIBS
 import React from 'react';
-import { applyRouterMiddleware, Router, Route, IndexRoute } from 'react-router';
+import { applyRouterMiddleware, browserHistory, Router, Route, IndexRoute } from 'react-router';
 import { useScroll } from 'react-router-scroll';
 
 // LAYOUT COMPONENTS
@@ -12,7 +12,7 @@ import Log from './components/common/log';
 import Users from './components/common/users';
 
 var airBookingRoutes = (
-    <Router render={applyRouterMiddleware(useScroll())}>
+    <Router history={browserHistory} render={applyRouterMiddleware(useScroll())}>
         <Route path="/" component={App}>
             <IndexRoute component={Cards} />
             <Route path="cards" component={Cards} />

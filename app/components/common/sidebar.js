@@ -15,18 +15,9 @@ class Sidebar extends React.Component {
 
     render() {
         var links = [
-            {
-                dir: '/cards',
-                label: 'Cards'
-            },
-            {
-                dir: '/users',
-                label: 'Users'
-            },
-            {
-                dir: '/log',
-                label: 'Log'
-            }
+            {dir: '/cards', label: 'Cards'},
+            {dir: '/users', label: 'Users'},
+            {dir: '/log', label: 'Log'}
         ];
 
         return (
