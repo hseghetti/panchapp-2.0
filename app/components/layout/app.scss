@@ -7,11 +7,11 @@ body {
 .app {
 
     &--main-content {
-        transform: translateX(52px);
+        transform: translateX(43px);
         transition: .5s;
 
         &_slide {
-            transform: translateX(152px);
+            transform: translateX(143px);
             transition: .5s;
         }
     }
