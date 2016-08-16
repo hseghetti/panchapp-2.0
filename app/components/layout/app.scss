@@ -1,23 +1,18 @@
 body {
     background-color: #222;
     margin: 0;
+    overflow-x: hidden;
+    word-wrap: break-word;
 }
 
 .app {
 
-    &--arrow {
-        cursor: pointer;
-        left: 6px;
-        position: absolute;
-        top: 25px;
-    }
-
     &--main-content {
-        transform: translateX(0);
+        transform: translateX(52px);
         transition: .5s;
 
         &_slide {
-            transform: translateX(100px);
+            transform: translateX(152px);
             transition: .5s;
         }
     }

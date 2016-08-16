@@ -3,7 +3,6 @@ import React from 'react';
 import classNames from 'classnames';
 
 // COMMON COMPONENTS
-import Arrow from '../common/arrow';
 import Header from '../common/header';
 import Sidebar from '../common/sidebar';
 
@@ -32,10 +31,9 @@ class App extends React.Component {
             <div className="app">
                 <div className={this.getContainerClass()}>
                     <Header />
-                    <Arrow className="app--arrow" onClickCb={this.toggleSideBar.bind(this)}/>
                     {this.props.children}
                 </div>
-                <Sidebar />
+                <Sidebar onClickCb={this.toggleSideBar.bind(this)} />
             </div>
         );
     }
