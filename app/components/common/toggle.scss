@@ -1,5 +1,5 @@
 .toggle {
-    background-color: #ccc;
+    background-color: #f2f2f2;
     cursor: pointer;
     height: 100%;
     padding-top: 10px;
@@ -10,6 +10,8 @@
     width: 43px;
 
     &_slide {
+        background-color: transparent;
+        cursor: default;
         margin-left: -3px;
         transform: translateX(100px);
         transition: .5s;
@@ -25,6 +27,7 @@
         display: inline-block;
         font: inherit;
         margin: 0;
+        outline: none;
         overflow: visible;
         text-transform: none;
         transition-duration: .15s;
@@ -38,8 +41,9 @@
 
     .hamburger-box {
         display: inline-block;
-        height: 24px;
+        height: 30px;
         position: relative;
+        width: 30px;
     }
 
     .hamburger-inner {
@@ -91,18 +95,21 @@
     }
 
     .hamburger--spin.is-active .hamburger-inner {
+        background-color: #fff;
         transform: rotate(225deg);
         transition-delay: .14s;
         transition-timing-function: cubic-bezier(.215, .61, .355, 1);
     }
 
     .hamburger--spin.is-active .hamburger-inner::before {
+        background-color: #fff;
         opacity: 0;
         top: 0;
         transition: top .1s ease-out, opacity .1s .14s ease-out;
     }
 
     .hamburger--spin.is-active .hamburger-inner::after {
+        background-color: #fff;
         bottom: 0;
         transform: rotate(-90deg);
         transition: bottom .1s ease-out, transform .3s .14s cubic-bezier(.215, .61, .355, 1);
