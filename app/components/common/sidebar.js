@@ -24,7 +24,7 @@ class Sidebar extends React.Component {
         ];
 
         return (
-            <div>
+            <div className="sidebar">
                 <div className={this.getClass()}>
                     {links.map(this.renderLinks)}
                 </div>
@@ -50,8 +50,8 @@ class Sidebar extends React.Component {
 
     getClass () {
         return classNames({
-            sidebar: true,
-            sidebar_displayed: this.context.sideBarOpened
+            'sidebar--content': true,
+            'sidebar--content_displayed': this.context.sideBarOpened
         });
     }
 }
