@@ -15,14 +15,38 @@ class Toggle extends React.Component {
 
     render() {
         return (
-            <div onClick={this.props.onClickCb} className={this.getClass()}>
-                <button className={this.getButtonClass()}>
+            <div {...this.getProps()}>
+                <button {...this.getButtonProps()}>
                     <span className="hamburger-box">
                         <span className="hamburger-inner"></span>
                     </span>
                 </button>
             </div>
         );
+    }
+
+    getProps() {
+        var props = {
+            className: this.getClass()
+        };
+
+        if (!this.context.sideBarOpened) {
+            props.onClick = this.props.onClickCb;
+        }
+
+        return props;
+    }
+
+    getButtonProps() {
+        var props = {
+            className: this.getButtonClass()
+        };
+
+        if (this.context.sideBarOpened) {
+            props.onClick = this.props.onClickCb;
+        }
+
+        return props;
     }
 
     getClass() {
@@ -36,7 +60,7 @@ class Toggle extends React.Component {
         return classNames(classes);
     }
 
-    getButtonClass () {
+    getButtonClass() {
         return classNames({
             'hamburger hamburger--spin': true,
             'is-active': this.context.sideBarOpened

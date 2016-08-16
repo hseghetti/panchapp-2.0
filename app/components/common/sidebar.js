@@ -48,7 +48,7 @@ class Sidebar extends React.Component {
         );
     }
 
-    getClass () {
+    getClass() {
         return classNames({
             'sidebar--content': true,
             'sidebar--content_displayed': this.context.sideBarOpened
