@@ -15,8 +15,8 @@ class Toggle extends React.Component {
 
     render() {
         return (
-            <div className={this.getClass()}>
-                <button onClick={this.props.onClickCb} className={this.getButtonClass()}>
+            <div onClick={this.props.onClickCb} className={this.getClass()}>
+                <button className={this.getButtonClass()}>
                     <span className="hamburger-box">
                         <span className="hamburger-inner"></span>
                     </span>
@@ -43,5 +43,7 @@ class Toggle extends React.Component {
         });
     }
 }
+
+Toggle.propTypes = {onClickCb: React.PropTypes.func.isRequired};
 
 export default Toggle;

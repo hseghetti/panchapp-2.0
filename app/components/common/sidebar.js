@@ -56,4 +56,6 @@ class Sidebar extends React.Component {
     }
 }
 
+Sidebar.propTypes = {onClickCb: React.PropTypes.func.isRequired};
+
 export default Sidebar;
