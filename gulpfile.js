@@ -4,7 +4,6 @@ var buffer = require('vinyl-buffer');
 var cleancss = require('gulp-clean-css');
 var concat = require('gulp-concat');
 var eslint = require('gulp-eslint');
-var fs = require('fs');
 var gulp = require('gulp');
 var rimraf = require('rimraf');
 var sass = require('gulp-sass');
@@ -12,11 +11,8 @@ var scsslint = require('gulp-scss-lint');
 var source = require('vinyl-source-stream');
 var uglify = require('gulp-uglify');
 
-// PRIVATE VARS
-var list = fs.readdirSync('./app/components');
-
 gulp.task('lint', function () {
-    return gulp.src(['./app/**/*.js','!./node_modules/**', '!./app/dist/**'])
+    return gulp.src(['./app/**/*.js','!./node_modules/**', '!./dist/**'])
         .pipe(eslint())
         .pipe(eslint.format())
 });
@@ -28,7 +24,7 @@ gulp.task('bundle', function () {
         .pipe(source('main.js'))
         .pipe(buffer())
         .pipe(uglify())
-        .pipe(gulp.dest('app/dist'));
+        .pipe(gulp.dest('dist'));
 });
 
 gulp.task('sass', function () {
@@ -37,20 +33,20 @@ gulp.task('sass', function () {
         .pipe(sass())
         .pipe(concat('styles.css'))
         .pipe(cleancss())
-        .pipe(gulp.dest('./app/dist'));
+        .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('copy', ['lint', 'bundle', 'sass'], function () {
     return gulp.src(['app/index.html','app/lib/bootstrap-css/css/bootstrap.min.css','app/style.css'])
-        .pipe(gulp.dest('app/dist'));
+        .pipe(gulp.dest('dist'));
 });
 
 gulp.task('rimraf', function () {
-    rimraf.sync('app/dist');
+    rimraf.sync('dist');
 });
 
 gulp.task('watch', ['copy'], function () {
-    gulp.watch(['app/**/*', '!app/dist/**/*'], ['copy']);
+    gulp.watch(['app/**/*', '!dist/**/*'], ['copy']);
 });
 
 gulp.task('build',['rimraf', 'watch'], function () {

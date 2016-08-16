@@ -3,6 +3,9 @@ import React from 'react';
 import classNames from 'classnames';
 import {Link} from 'react-router';
 
+// COMMON COMPONENTS
+import Toggle from '../common/toggle';
+
 class Sidebar extends React.Component {
 
     constructor() {
@@ -21,8 +24,11 @@ class Sidebar extends React.Component {
         ];
 
         return (
-            <div className={this.getClass()}>
-                {links.map(this.renderLinks)}
+            <div className="sidebar">
+                <div className={this.getClass()}>
+                    {links.map(this.renderLinks)}
+                </div>
+                <Toggle onClickCb={this.props.onClickCb} />
             </div>
         );
     }
@@ -44,10 +50,12 @@ class Sidebar extends React.Component {
 
     getClass () {
         return classNames({
-            sidebar: true,
-            sidebar_displayed: this.context.sideBarOpened
+            'sidebar--content': true,
+            'sidebar--content_displayed': this.context.sideBarOpened
         });
     }
 }
+
+Sidebar.propTypes = {onClickCb: React.PropTypes.func.isRequired};
 
 export default Sidebar;
