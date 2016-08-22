@@ -37,7 +37,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('copy', ['lint', 'bundle', 'sass'], function () {
-    return gulp.src(['app/index.html','app/lib/bootstrap-css/css/bootstrap.min.css','app/style.css'])
+    return gulp.src(['app/index.html', 'app/style.css'])
         .pipe(gulp.dest('dist'));
 });
 
