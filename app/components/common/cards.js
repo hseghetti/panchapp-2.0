@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery';
 
 class Cards extends React.Component {
 
@@ -9,18 +8,6 @@ class Cards extends React.Component {
         this.state = {
             cards: {}
         };
-    }
-
-    componentWillMount() {
-        $.ajax({
-            type: 'GET',
-            url: '/getCards'
-        })
-        .done(function (res) {
-            this.setState({
-                cards: res
-            });
-        }.bind(this));
     }
 
     render() {
