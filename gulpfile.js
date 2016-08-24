@@ -22,6 +22,14 @@ gulp.task('bundle', function () {
         .transform('babelify', {presets: ['es2015', 'react']})
         .bundle()
         .pipe(source('main.js'))
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('bundle-prod', function () {
+    return browserify({entries: './app/main.js'})
+        .transform('babelify', {presets: ['es2015', 'react']})
+        .bundle()
+        .pipe(source('main.js'))
         .pipe(buffer())
         .pipe(uglify())
         .pipe(gulp.dest('dist'));
@@ -41,6 +49,11 @@ gulp.task('copy', ['lint', 'bundle', 'sass'], function () {
         .pipe(gulp.dest('dist'));
 });
 
+gulp.task('copy-prod', ['bundle-prod', 'sass'], function () {
+    return gulp.src(['app/index.html', 'app/style.css'])
+        .pipe(gulp.dest('dist'));
+});
+
 gulp.task('rimraf', function () {
     rimraf.sync('dist');
 });
@@ -51,6 +64,10 @@ gulp.task('watch', ['copy'], function () {
 
 gulp.task('build',['rimraf', 'watch'], function () {
    console.log('Gulp completed...');
+});
+
+gulp.task('build-prod',['copy-prod'], function () {
+   console.log('Gulp for production completed...');
 });
 
 gulp.task('default', ['build']);
