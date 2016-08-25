@@ -19,6 +19,10 @@ class FirebaseStore extends DataStore {
         return instance;
     }
 
+    setCards(cards) {
+        this.setState({cards: cards});
+    }
+
     getCards() {
         return this.state.cards;
     }

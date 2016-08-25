@@ -1,6 +1,9 @@
 // VENDOR LIBS
 import React from 'react';
 import classNames from 'classnames';
+import firebase from 'firebase';
+
+import firebaseActions from '../../actions/firebase-actions.js';
 
 // COMMON COMPONENTS
 import Header from '../common/header';
@@ -18,6 +21,8 @@ class App extends React.Component {
         this.state = {
             sideBarOpened: false
         };
+
+        this.intializeFirebase();
     }
 
     getChildContext() {
@@ -49,6 +54,21 @@ class App extends React.Component {
         this.setState({
             sideBarOpened: !this.state.sideBarOpened
         });
+    }
+
+    intializeFirebase() {
+        firebase.initializeApp({
+            apiKey: 'AIzaSyAXYjuZzrvC0vtgpWEL1qKHv6BR7La1fZ0',
+            authDomain: 'papp-cards.firebaseapp.com',
+            databaseURL: 'https://mutombo-cards.firebaseio.com/',
+            storageBucket: 'papp-cards.appspot.com'
+        });
+
+        firebase.database().ref().on('value', function(snapshot) {
+            if (snapshot.val()) {
+                firebaseActions.loadCards(snapshot.val());
+            }
+        }.bind(this));
     }
 }
 

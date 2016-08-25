@@ -1,25 +1,28 @@
 // CORE LIBS
-import { dispatchCommand } from '../flux/app-dispatcher';
+import dispatcher from '../flux/dispatcher';
 
 // COMMANDS
-import AddCardCommand from './commands/add-card-command';
+// import AddCardCommand from './commands/add-card-command';
+import LoadCardsCommand from './commands/load-cards-command';
 
-export default {
+export default class Actions {
 
-    addCard (card) {
-        dispatchCommand(AddCardCommand(card));
-    },
+    static loadCards(cards) {
+        dispatcher.dispatch(new LoadCardsCommand(cards));
+    }
 
-    removeCard () {
-    },
+    addCard() {
+    }
 
-    addUser () {
-    },
+    removeCard() {
+    }
 
-    removeUser () {
-    },
+    addUser() {
+    }
 
-    addLog () {
+    removeUser() {
+    }
 
+    addLog() {
     }
 };

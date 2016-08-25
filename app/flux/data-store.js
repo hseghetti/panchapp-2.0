@@ -1,5 +1,6 @@
-import EventEmitter from 'events';
 import _ from 'lodash';
+import dispatcher from './dispatcher';
+import EventEmitter from 'events';
 
 var CHANGE_EVENT = 'change';
 
@@ -7,6 +8,7 @@ class DataStore extends EventEmitter {
 
     constructor() {
        super();
+       dispatcher.registerStore(this);
     }
 
     emitChange() {
@@ -22,12 +24,16 @@ class DataStore extends EventEmitter {
     }
 
     setState(newState, callback) {
-        _.extend({}, this.state, newstate);
+        _.extend(this.state, newState);
         this.emitChange();
 
         if (_.isFunction(callback)) {
             callback();
         }
+    }
+
+    processCommand(command) {
+        command.execute(this);
     }
 }
 
