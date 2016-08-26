@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import {Link} from 'react-router';
 
 // COMMON COMPONENTS
-import Toggle from '../common/toggle';
+import Toggle from 'components/common/toggle';
 
 class Sidebar extends React.Component {
 

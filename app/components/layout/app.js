@@ -1,10 +1,15 @@
 // VENDOR LIBS
 import React from 'react';
 import classNames from 'classnames';
+import firebase from 'firebase';
+
+// LIBS
+import firebaseActions from 'lib/actions/firebase-actions.js';
+import FirebaseAppInitializer from 'lib/firebase-app-initializer';
 
 // COMMON COMPONENTS
-import Header from '../common/header';
-import Sidebar from '../common/sidebar';
+import Header from 'components/common/header';
+import Sidebar from 'components/common/sidebar';
 
 class App extends React.Component {
 
@@ -20,6 +25,14 @@ class App extends React.Component {
         };
     }
 
+    componentDidMount() {
+        firebase.database().ref().on('value', function(snapshot) {
+            if (snapshot.val()) {
+                firebaseActions.loadCards(snapshot.val());
+            }
+        }.bind(this));
+    }
+
     getChildContext() {
         return {
             sideBarOpened: this.state.sideBarOpened
@@ -29,11 +42,13 @@ class App extends React.Component {
     render() {
         return (
             <div className="app">
-                <div className={this.getContainerClass()}>
-                    <Header />
-                    {this.props.children}
-                </div>
-                <Sidebar onClickCb={this.toggleSideBar.bind(this)} />
+                <FirebaseAppInitializer>
+                    <div className={this.getContainerClass()}>
+                        <Header />
+                        {this.props.children}
+                    </div>
+                    <Sidebar onClickCb={this.toggleSideBar.bind(this)} />
+                </FirebaseAppInitializer>
             </div>
         );
     }

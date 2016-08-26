@@ -4,12 +4,12 @@ import { applyRouterMiddleware, browserHistory, Router, Route, IndexRoute } from
 import { useScroll } from 'react-router-scroll';
 
 // LAYOUT COMPONENTS
-import App from './components/layout/app';
+import App from 'components/layout/app';
 
 // COMMON COMPONENTS
-import Cards from './components/common/cards';
-import Log from './components/common/log';
-import Users from './components/common/users';
+import Cards from 'components/common/cards';
+import Log from 'components/common/log';
+import Users from 'components/common/users';
 
 var airBookingRoutes = (
     <Router history={browserHistory} render={applyRouterMiddleware(useScroll())}>
