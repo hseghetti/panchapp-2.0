@@ -1,5 +1,12 @@
+// VENDOR LIBS
 import React from 'react';
-import FirebaseStore from '../../stores/firebase-store';
+import _ from 'lodash';
+
+// LIBS
+import FirebaseStore from 'lib/firebase-store';
+
+// LAYOUT COMPONENTS
+import Loading from 'components/layout/loading';
 
 class Cards extends React.Component {
 
@@ -18,9 +25,17 @@ class Cards extends React.Component {
     render() {
         return (
             <div className="cards">
-                {this.state.cards && Object.keys(this.state.cards).map(this.renderCardUsers.bind(this)) || 'NO HAY CARDS'}
+                <Loading>
+                    {this.renderCards()}
+                </Loading>
             </div>
         );
+    }
+
+    renderCards() {
+        if (!_.isEmpty(this.state.cards)) {
+            return Object.keys(this.state.cards).map(this.renderCardUsers.bind(this));
+        }
     }
 
     renderCardUsers (card) {

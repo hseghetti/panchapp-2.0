@@ -1,4 +1,5 @@
-import FirebaseStore from '../../stores/firebase-store';
+// LIBS
+import FirebaseStore from 'lib/firebase-store';
 
 class AddCardCommand {
 

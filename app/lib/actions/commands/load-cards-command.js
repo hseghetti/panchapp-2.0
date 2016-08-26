@@ -1,4 +1,4 @@
-import FirebaseStore from '../../stores/firebase-store';
+import FirebaseStore from 'lib/firebase-store';
 
 class LoadCardsCommand {
 

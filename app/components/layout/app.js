@@ -3,11 +3,13 @@ import React from 'react';
 import classNames from 'classnames';
 import firebase from 'firebase';
 
-import firebaseActions from '../../actions/firebase-actions.js';
+// LIBS
+import firebaseActions from 'lib/actions/firebase-actions.js';
+import FirebaseAppInitializer from 'lib/firebase-app-initializer';
 
 // COMMON COMPONENTS
-import Header from '../common/header';
-import Sidebar from '../common/sidebar';
+import Header from 'components/common/header';
+import Sidebar from 'components/common/sidebar';
 
 class App extends React.Component {
 
@@ -21,8 +23,14 @@ class App extends React.Component {
         this.state = {
             sideBarOpened: false
         };
+    }
 
-        this.intializeFirebase();
+    componentDidMount() {
+        firebase.database().ref().on('value', function(snapshot) {
+            if (snapshot.val()) {
+                firebaseActions.loadCards(snapshot.val());
+            }
+        }.bind(this));
     }
 
     getChildContext() {
@@ -34,11 +42,13 @@ class App extends React.Component {
     render() {
         return (
             <div className="app">
-                <div className={this.getContainerClass()}>
-                    <Header />
-                    {this.props.children}
-                </div>
-                <Sidebar onClickCb={this.toggleSideBar.bind(this)} />
+                <FirebaseAppInitializer>
+                    <div className={this.getContainerClass()}>
+                        <Header />
+                        {this.props.children}
+                    </div>
+                    <Sidebar onClickCb={this.toggleSideBar.bind(this)} />
+                </FirebaseAppInitializer>
             </div>
         );
     }
@@ -54,21 +64,6 @@ class App extends React.Component {
         this.setState({
             sideBarOpened: !this.state.sideBarOpened
         });
-    }
-
-    intializeFirebase() {
-        firebase.initializeApp({
-            apiKey: 'AIzaSyAXYjuZzrvC0vtgpWEL1qKHv6BR7La1fZ0',
-            authDomain: 'papp-cards.firebaseapp.com',
-            databaseURL: 'https://mutombo-cards.firebaseio.com/',
-            storageBucket: 'papp-cards.appspot.com'
-        });
-
-        firebase.database().ref().on('value', function(snapshot) {
-            if (snapshot.val()) {
-                firebaseActions.loadCards(snapshot.val());
-            }
-        }.bind(this));
     }
 }
 

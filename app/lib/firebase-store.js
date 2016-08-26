@@ -1,4 +1,5 @@
-import DataStore from '../flux/data-store';
+// FLUX
+import DataStore from 'flux/data-store';
 
 let instance = null;
 

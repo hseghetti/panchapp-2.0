@@ -1,5 +1,8 @@
+// VENDOR LIBS
 import ReactDOM from 'react-dom';
-import Routes from './routes';
+
+// LAYOUT COMPONENT
+import Routes from 'components/layout/routes';
 
 function render() {
     ReactDOM.render(Routes, document.getElementById('main-app'));

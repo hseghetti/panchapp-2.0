@@ -1,6 +1,9 @@
+// VENDOR LIBS
 import _ from 'lodash';
-import dispatcher from './dispatcher';
 import EventEmitter from 'events';
+
+// FLUX
+import dispatcher from 'flux/dispatcher';
 
 var CHANGE_EVENT = 'change';
 

@@ -5,6 +5,7 @@ var cleancss = require('gulp-clean-css');
 var concat = require('gulp-concat');
 var eslint = require('gulp-eslint');
 var gulp = require('gulp');
+var path = require("path");
 var rimraf = require('rimraf');
 var sass = require('gulp-sass');
 var scsslint = require('gulp-scss-lint');
@@ -18,7 +19,10 @@ gulp.task('lint', function () {
 });
 
 gulp.task('bundle', function () {
-    return browserify({entries: './app/main.js', debug: true})
+    return browserify({
+            entries: './app/main.js', debug: true,
+            paths: [path.join(__dirname, '/app')],
+        })
         .transform('babelify', {presets: ['es2015', 'react']})
         .bundle()
         .pipe(source('main.js'))

@@ -1,9 +1,9 @@
-// CORE LIBS
-import dispatcher from '../flux/dispatcher';
+// FLUX
+import dispatcher from 'flux/dispatcher';
 
-// COMMANDS
-// import AddCardCommand from './commands/add-card-command';
-import LoadCardsCommand from './commands/load-cards-command';
+// LIBS
+// import AddCardCommand from 'lib/actions/commands/add-card-command';
+import LoadCardsCommand from 'lib/actions/commands/load-cards-command.js';
 
 export default class Actions {
 
