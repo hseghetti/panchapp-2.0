@@ -8,6 +8,9 @@ import FirebaseStore from 'lib/firebase-store';
 // LAYOUT COMPONENTS
 import Loading from 'components/layout/loading';
 
+// COMMON COMPONENTS
+import Card from 'components/common/card';
+
 class Cards extends React.Component {
 
     constructor() {
@@ -20,6 +23,10 @@ class Cards extends React.Component {
         this.state = {
             cards: this.firebaseStore.getCards()
         };
+    }
+
+    componentWillUnmount() {
+        this.firebaseStore.removeChangeListener(this.loadCards.bind(this));
     }
 
     render() {
@@ -38,8 +45,19 @@ class Cards extends React.Component {
         }
     }
 
-    renderCardUsers (card) {
-        return <div>{this.state.cards[card].name}</div>;
+    renderCardUsers (card, index) {
+        return <Card {...this.getCardProps(card, index)} />;
+    }
+
+    getCardProps(card, index) {
+        var card = this.state.cards[card];
+
+        return {
+            category: card.cat,
+            date: card.date,
+            key: index,
+            name: card.name
+        };
     }
 
     loadCards() {

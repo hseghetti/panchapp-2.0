@@ -9,7 +9,11 @@ class Card extends React.Component {
 
     render() {
         return (
-            <div></div>
+            <div className="card">
+                <div className="card--name">{this.props.name}</div>
+                <div className="card--category">{this.props.category}</div>
+                <div className="card--date">{this.props.date}</div>
+            </div>
         );
     }
 }

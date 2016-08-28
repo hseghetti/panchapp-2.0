@@ -1,7 +1,7 @@
 // VENDOR LIBS
 import React from 'react';
 import classNames from 'classnames';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 
 // COMMON COMPONENTS
 import Toggle from 'components/common/toggle';

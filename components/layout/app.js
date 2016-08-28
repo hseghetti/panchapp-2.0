@@ -42,12 +42,18 @@ class App extends React.Component {
     render() {
         return (
             <div className="app">
+                <Header />
+                {this.renderContent()}
+                <Sidebar onClickCb={this.toggleSideBar.bind(this)} />
+            </div>
+        );
+    }
+
+    renderContent() {
+        return (
+            <div className={this.getContainerClass()}>
                 <FirebaseAppInitializer>
-                    <div className={this.getContainerClass()}>
-                        <Header />
-                        {this.props.children}
-                    </div>
-                    <Sidebar onClickCb={this.toggleSideBar.bind(this)} />
+                    {this.props.children}
                 </FirebaseAppInitializer>
             </div>
         );

@@ -1,6 +1,8 @@
 .header {
     height: 100px;
     position: relative;
+    transform: translateX(43px);
+    transition: .5s;
 
     &--title {
         color: #fff;
@@ -10,5 +12,10 @@
         left: 82px;
         position: absolute;
         top: 23px;
+    }
+
+    &_slide {
+        transform: translateX(163px);
+        transition: .5s;
     }
 }

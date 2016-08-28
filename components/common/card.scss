@@ -1,0 +1,32 @@
+.card {
+    background: #ecf0f1;
+    border-radius: 10px;
+    color: #454545;
+    display: inline-block;
+    font-family: monospace;
+    margin: 24px;
+    max-height: 368px;
+    max-width: 200px;
+    min-height: 174px;
+    padding: 5px 0;
+    text-align: center;
+    transition: all .2s ease-in-out;
+    width: 200px;
+    word-wrap: break-word;
+
+
+    &:hover {
+        box-shadow: 0 0 10px #fff;
+        transform: scale(1.1);
+    }
+
+    &--name {
+        font-size: 45px;
+        font-weight: bold;
+    }
+
+    &--category {
+        font-size: 18px;
+        margin: 25px 0;
+    }
+}

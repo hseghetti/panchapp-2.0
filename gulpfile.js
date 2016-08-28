@@ -18,6 +18,7 @@ var paths = [
     'lib/**/*.js',
     'flux/**/*.js'
 ];
+var scssPaths = ['components/**/*.scss']
 
 gulp.task('lint', function () {
     return gulp.src(paths)
@@ -50,7 +51,7 @@ gulp.task('bundle-prod', function () {
 });
 
 gulp.task('sass', function () {
-    gulp.src('components/**/*.scss')
+    gulp.src(scssPaths)
         .pipe(scsslint({config: 'lint.yml'}))
         .pipe(sass())
         .pipe(concat('styles.css'))
@@ -73,7 +74,7 @@ gulp.task('rimraf', function () {
 });
 
 gulp.task('watch', ['copy'], function () {
-    gulp.watch(paths, ['copy']);
+    gulp.watch(paths.concat(scssPaths), ['copy']);
 });
 
 gulp.task('build',['rimraf', 'watch'], function () {
