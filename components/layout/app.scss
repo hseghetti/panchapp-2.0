@@ -1,5 +1,7 @@
+@import 'globals';
+
 body {
-    background-color: #222;
+    background-color: $dark-gray;
     margin: 0;
     overflow-x: hidden;
 }

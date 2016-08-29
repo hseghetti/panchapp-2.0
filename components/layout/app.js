@@ -1,11 +1,9 @@
 // VENDOR LIBS
 import React from 'react';
 import classNames from 'classnames';
-import firebase from 'firebase';
 
 // LIBS
-import firebaseActions from 'lib/actions/firebase-actions.js';
-import FirebaseAppInitializer from 'lib/firebase-app-initializer';
+import FirebaseApp from 'lib/firebase-app';
 
 // COMMON COMPONENTS
 import Header from 'components/common/header';
@@ -23,14 +21,6 @@ class App extends React.Component {
         this.state = {
             sideBarOpened: false
         };
-    }
-
-    componentDidMount() {
-        firebase.database().ref().on('value', function(snapshot) {
-            if (snapshot.val()) {
-                firebaseActions.loadCards(snapshot.val());
-            }
-        }.bind(this));
     }
 
     getChildContext() {
@@ -52,9 +42,9 @@ class App extends React.Component {
     renderContent() {
         return (
             <div className={this.getContainerClass()}>
-                <FirebaseAppInitializer>
+                <FirebaseApp>
                     {this.props.children}
-                </FirebaseAppInitializer>
+                </FirebaseApp>
             </div>
         );
     }

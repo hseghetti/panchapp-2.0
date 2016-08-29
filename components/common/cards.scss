@@ -1,17 +1,10 @@
+@import 'globals';
+
 .cards {
-    background-color: #222;
+    background-color: $dark-gray;
 
     .card {
-        animation: fadeIn 2s;
+        animation: $fade-in;
     }
 }
 
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}

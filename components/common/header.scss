@@ -1,3 +1,5 @@
+@import 'globals';
+
 .header {
     height: 100px;
     position: relative;
@@ -5,7 +7,7 @@
     transition: .5s;
 
     &--title {
-        color: #fff;
+        color: $light-gray;
         font-family: Sans-Serif;
         font-size: 41px;
         font-weight: 700;

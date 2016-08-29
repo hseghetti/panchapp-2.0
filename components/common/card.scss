@@ -1,7 +1,9 @@
+@import 'globals';
+
 .card {
     background: #ecf0f1;
     border-radius: 10px;
-    color: #454545;
+    color: $dark-gray;
     display: inline-block;
     font-family: monospace;
     margin: 24px;

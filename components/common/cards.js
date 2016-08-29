@@ -9,6 +9,7 @@ import FirebaseStore from 'lib/firebase-store';
 import Loading from 'components/layout/loading';
 
 // COMMON COMPONENTS
+import Button from 'components/common/button';
 import Card from 'components/common/card';
 
 class Cards extends React.Component {
@@ -32,8 +33,9 @@ class Cards extends React.Component {
     render() {
         return (
             <div className="cards">
-                <Loading>
+                <Loading loading={_.isEmpty(this.state.cards)}>
                     {this.renderCards()}
+                    {this.renderAddCardButton()}
                 </Loading>
             </div>
         );
@@ -42,6 +44,12 @@ class Cards extends React.Component {
     renderCards() {
         if (!_.isEmpty(this.state.cards)) {
             return Object.keys(this.state.cards).map(this.renderCardUsers.bind(this));
+        }
+    }
+
+    renderAddCardButton() {
+        if (!_.isEmpty(this.state.cards)) {
+            return <Button type='add' />;
         }
     }
 

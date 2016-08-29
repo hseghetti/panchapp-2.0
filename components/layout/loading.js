@@ -3,11 +3,19 @@ import React from 'react';
 import _ from 'lodash';
 import classNames from 'classnames';
 
+// LIBS
+import FirebaseStore from 'lib/firebase-store';
+
 class Loading extends React.Component {
 
     constructor() {
         super();
+        this.state = {
+            error: false
+        };
         this.renderLoading.bind(this);
+        this.firebaseStore = new FirebaseStore();
+        this.firebaseStore.addChangeListener(this.setErrorMessage.bind(this));
     }
 
     render() {
@@ -21,7 +29,7 @@ class Loading extends React.Component {
     renderLoading() {
         var dataToRender = null;
 
-        if (_.isEmpty(this.props.children)) {
+        if (!this.state.error && this.props.loading) {
             dataToRender = (
                 <div className="loading--animation-container">
                     <span className="loading--animation-item"></span>
@@ -30,6 +38,8 @@ class Loading extends React.Component {
                     <span className="loading--animation-item"></span>
                 </div>
             );
+        } else if (this.state.error) {
+            dataToRender = <div className="loading--error">Something went wrong... Please try reloading</div>;
         } else {
             dataToRender = this.props.children;
         }
@@ -40,9 +50,19 @@ class Loading extends React.Component {
     getClass() {
         return classNames({
             'loading': true,
-            'loading_spinner': _.isEmpty(this.props.children)
+            'loading_spinner': !this.state.error && this.props.loading
         });
     }
+
+    setErrorMessage() {
+        if (!_.isEmpty(this.firebaseStore.getError())) {
+            this.setState({
+                error: true
+            });
+        }
+    }
 }
+
+Loading.propTypes = {loading: React.PropTypes.bool.isRequired};
 
 export default Loading;

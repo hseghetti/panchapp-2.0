@@ -1,7 +1,9 @@
+@import 'globals';
+
 .loading {
 
     &_spinner {
-        background-color: #222;
+        background-color: $dark-gray;
     }
 
     &--animation {
@@ -13,7 +15,7 @@
 
         &-item {
             animation: loading .4s infinite alternate;
-            background: #4285f4;
+            background: $google-blue;
             border-radius: 50%;
             display: inline-block;
             height: 20px;
@@ -22,19 +24,26 @@
 
             &:nth-of-type(2) {
                 animation-delay: .2s;
-                background: #db4437;
+                background: $google-red;
             }
 
             &:nth-of-type(3) {
                 animation-delay: .4s;
-                background: #f4b400;
+                background: $google-yellow;
             }
 
             &:nth-of-type(4) {
                 animation-delay: .6s;
-                background: #0f9d58;
+                background: $google-green;
             }
         }
+    }
+
+    &--error {
+        color: $light-gray;
+        font-family: monospace;
+        font-size: 45px;
+        font-weight: bold;
     }
 }
 

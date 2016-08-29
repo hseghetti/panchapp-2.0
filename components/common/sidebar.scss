@@ -1,10 +1,12 @@
+@import 'globals';
+
 .sidebar {
     height: 100%;
     position: fixed;
     top: 0;
 
     &--content {
-        background-color: #f2f2f2;
+        background-color: $light-gray;
         height: 100%;
         position: absolute;
         top: 0;
@@ -29,7 +31,7 @@
         text-decoration: none;
 
         &-active {
-            background-color: #222;
+            background-color: $dark-gray;
             color: #fff;
         }
 

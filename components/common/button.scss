@@ -1,9 +1,27 @@
+@import 'globals';
+
 .button {
-    &_primary {
-        display: inline-block;
+    color: $light-gray;
+
+    &_add {
+        animation: $fade-in;
+        background-color: $google-red;
+        border: 0;
+        border-radius: 50%;
+        bottom: 45px;
+        color: #fff;
+        cursor: pointer;
+        font-size: 15px;
+        height: 55px;
+        left: 95px;
+        outline: none;
+        position: relative;
+        text-decoration: none;
+        width: 55px;
     }
 
-    &_secondary {
-        display: inline-block;
+    &:hover {
+        font-size: 16.5px;
+        transform: scale(1.1);
     }
 }
