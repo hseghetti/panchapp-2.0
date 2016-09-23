@@ -3,13 +3,12 @@ import React from 'react';
 import _ from 'lodash';
 
 // LIBS
-import FirebaseStore from 'lib/firebase-store';
+import { instance as firebaseStore } from 'lib/firebase-store';
 
 // LAYOUT COMPONENTS
 import Loading from 'components/layout/loading';
 
 // COMMON COMPONENTS
-import Button from 'components/common/button';
 import Card from 'components/common/card';
 
 class Cards extends React.Component {
@@ -17,17 +16,15 @@ class Cards extends React.Component {
     constructor() {
         super();
 
-        this.firebaseStore = new FirebaseStore();
-
-        this.firebaseStore.addChangeListener(this.loadCards.bind(this));
+        firebaseStore.addChangeListener(this.loadCards.bind(this));
 
         this.state = {
-            cards: this.firebaseStore.getCards()
+            cards: firebaseStore.getCards()
         };
     }
 
     componentWillUnmount() {
-        this.firebaseStore.removeChangeListener(this.loadCards.bind(this));
+        firebaseStore.removeChangeListener(this.loadCards.bind(this));
     }
 
     render() {
@@ -35,7 +32,6 @@ class Cards extends React.Component {
             <div className="cards">
                 <Loading loading={_.isEmpty(this.state.cards)}>
                     {this.renderCards()}
-                    {this.renderAddCardButton()}
                 </Loading>
             </div>
         );
@@ -44,12 +40,6 @@ class Cards extends React.Component {
     renderCards() {
         if (!_.isEmpty(this.state.cards)) {
             return Object.keys(this.state.cards).map(this.renderCardUsers.bind(this));
-        }
-    }
-
-    renderAddCardButton() {
-        if (!_.isEmpty(this.state.cards)) {
-            return <Button type='add' />;
         }
     }
 
@@ -70,7 +60,7 @@ class Cards extends React.Component {
 
     loadCards() {
         this.setState({
-            cards: this.firebaseStore.getCards()
+            cards: firebaseStore.getCards()
         });
     }
 }

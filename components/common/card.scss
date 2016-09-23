@@ -1,34 +1,35 @@
-@import 'globals';
-
 .card {
-    background: #ecf0f1;
+    backface-visibility: hidden;
+    background: $tertiary-gray;
     border-radius: 10px;
     color: $dark-gray;
     display: inline-block;
-    font-family: monospace;
+    height: 240px;
     margin: 24px;
-    max-height: 368px;
-    max-width: 200px;
-    min-height: 174px;
     padding: 5px 0;
     text-align: center;
-    transition: all .2s ease-in-out;
-    width: 200px;
+    transition: .2s all;
+    vertical-align: top;
+    width: 240px;
     word-wrap: break-word;
 
 
     &:hover {
-        box-shadow: 0 0 10px #fff;
-        transform: scale(1.1);
+        backface-visibility: hidden;
+        box-shadow: 0 0 20px $tertiary-gray;
+    }
+
+    &--info {
+        height: 150px;
     }
 
     &--name {
-        font-size: 45px;
-        font-weight: bold;
+        font: font(45px);
     }
 
     &--category {
-        font-size: 18px;
+        font: font(25px);
         margin: 25px 0;
+        text-transform: uppercase;
     }
 }

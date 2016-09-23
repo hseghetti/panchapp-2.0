@@ -1,5 +1,3 @@
-@import 'globals';
-
 .header {
     height: 100px;
     position: relative;
@@ -8,16 +6,20 @@
 
     &--title {
         color: $light-gray;
-        font-family: Sans-Serif;
-        font-size: 41px;
-        font-weight: 700;
-        left: 82px;
-        position: absolute;
-        top: 23px;
+        display: inline-block;
+        font: bold font(41px, Sans-Serif);
+        margin: 25px;
+        vertical-align: middle;
     }
 
     &_slide {
         transform: translateX(163px);
         transition: .5s;
+    }
+
+    &-button {
+        display: inline-block;
+        margin: 0 15px;
+        vertical-align: middle;
     }
 }

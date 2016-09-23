@@ -6,8 +6,8 @@ import classNames from 'classnames';
 import FirebaseApp from 'lib/firebase-app';
 
 // COMMON COMPONENTS
-import Header from 'components/common/header';
-import Sidebar from 'components/common/sidebar';
+import Header from 'components/layout/header';
+import Sidebar from 'components/layout/sidebar';
 
 class App extends React.Component {
 

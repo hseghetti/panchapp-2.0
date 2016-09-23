@@ -3,6 +3,7 @@ var path = require("path");
 
 var app = express();
 
+app.use(require('connect-livereload')({port: 35729}));
 app.use(express.static(path.join(__dirname, "dist")));
 
 app.get('*', function (request, response){

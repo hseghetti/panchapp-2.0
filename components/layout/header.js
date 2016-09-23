@@ -2,6 +2,9 @@
 import React from 'react';
 import classNames from 'classnames';
 
+// COMMON COMPONENTS
+import Button from 'components/common/button';
+
 class Header extends React.Component {
 
     constructor() {
@@ -11,10 +14,14 @@ class Header extends React.Component {
         };
         this.getClass.bind(this);
     }
+
     render() {
         return (
             <div className={this.getClass()}>
                 {this.renderTitle()}
+                <Button className="header-button" type='add'>
+                    +
+                </Button>
             </div>
         );
     }

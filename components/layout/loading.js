@@ -4,7 +4,7 @@ import _ from 'lodash';
 import classNames from 'classnames';
 
 // LIBS
-import FirebaseStore from 'lib/firebase-store';
+import { instance as firebaseStore } from 'lib/firebase-store';
 
 class Loading extends React.Component {
 
@@ -14,8 +14,7 @@ class Loading extends React.Component {
             error: false
         };
         this.renderLoading.bind(this);
-        this.firebaseStore = new FirebaseStore();
-        this.firebaseStore.addChangeListener(this.setErrorMessage.bind(this));
+        firebaseStore.addChangeListener(this.setErrorMessage.bind(this));
     }
 
     render() {
@@ -55,7 +54,7 @@ class Loading extends React.Component {
     }
 
     setErrorMessage() {
-        if (!_.isEmpty(this.firebaseStore.getError())) {
+        if (!_.isEmpty(firebaseStore.getError())) {
             this.setState({
                 error: true
             });

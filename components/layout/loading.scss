@@ -1,5 +1,3 @@
-@import 'globals';
-
 .loading {
 
     &_spinner {
@@ -14,7 +12,7 @@
         }
 
         &-item {
-            animation: loading .4s infinite alternate;
+            animation: $loading infinite alternate;
             background: $google-blue;
             border-radius: 50%;
             display: inline-block;
@@ -41,18 +39,6 @@
 
     &--error {
         color: $light-gray;
-        font-family: monospace;
-        font-size: 45px;
-        font-weight: bold;
-    }
-}
-
-@keyframes loading {
-    0% {
-        transform: translateY(0);
-    }
-
-    100% {
-        transform: translateY(-10px);
+        font: bold font(45px);
     }
 }
