@@ -1,5 +1,4 @@
 .card {
-    backface-visibility: hidden;
     background: $tertiary-gray;
     border-radius: 10px;
     color: $dark-gray;
@@ -15,7 +14,6 @@
 
 
     &:hover {
-        backface-visibility: hidden;
         box-shadow: 0 0 20px $tertiary-gray;
     }
 
