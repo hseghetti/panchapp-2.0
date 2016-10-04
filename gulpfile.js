@@ -6,6 +6,7 @@ var concat = require('gulp-concat');
 var eslint = require('gulp-eslint');
 var gulp = require('gulp');
 var livereload = require('gulp-livereload');
+var nodemon = require('gulp-nodemon');
 var path = require("path");
 var rimraf = require('rimraf');
 var sass = require('gulp-sass');
@@ -86,7 +87,12 @@ gulp.task('watch', ['copy', 'sass'], function () {
     gulp.watch(scssPaths, ['sass']);
 });
 
-gulp.task('build',['rimraf', 'watch']);
+gulp.task('build',['rimraf', 'watch'], function () {
+    nodemon({
+        script: 'server.js',
+        watch: 'server.js'
+    });
+});
 
 gulp.task('build-prod',['copy-prod']);
 
