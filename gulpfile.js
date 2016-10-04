@@ -82,12 +82,12 @@ gulp.task('rimraf', function () {
 });
 
 gulp.task('watch', ['copy', 'sass'], function () {
-    livereload.listen();
+    livereload.listen(35730);
     gulp.watch(paths, ['copy']);
     gulp.watch(scssPaths, ['sass']);
 });
 
-gulp.task('build',['rimraf', 'watch'], function () {
+gulp.task('start',['rimraf', 'watch'], function () {
     nodemon({
         script: 'server.js',
         watch: 'server.js'
@@ -96,4 +96,4 @@ gulp.task('build',['rimraf', 'watch'], function () {
 
 gulp.task('build-prod',['copy-prod']);
 
-gulp.task('default', ['build']);
+gulp.task('default', ['start']);
