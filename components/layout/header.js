@@ -1,6 +1,7 @@
 // VENDOR LIBS
 import React from 'react';
 import classNames from 'classnames';
+import zenscroll from 'zenscroll';
 
 // COMMON COMPONENTS
 import Button from 'components/common/button';
@@ -19,7 +20,7 @@ class Header extends React.Component {
         return (
             <div className={this.getClass()}>
                 {this.renderTitle()}
-                <Button className="header-button" type='add'>
+                <Button {...this.getButtonProps()}>
                     +
                 </Button>
             </div>
@@ -35,6 +36,21 @@ class Header extends React.Component {
             'header': true,
             'header_slide': this.context.sideBarOpened
         });
+    }
+
+    getButtonProps() {
+        return {
+            onClick: this.scrollPage,
+            className: 'header-button',
+            type: 'add'
+        };
+    }
+
+    scrollPage() {
+        // TODO: this should be executed as a cb when closing the add card modal
+        var windowHeight = document.documentElement.clientHeight || window.innerHeight;
+
+        zenscroll.toY(windowHeight);
     }
 }
 

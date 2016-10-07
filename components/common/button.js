@@ -6,10 +6,17 @@ class Button extends React.Component {
 
     render() {
         return (
-            <button className={this.getClass()}>
+            <button {...this.getProps()}>
                 {this.props.children}
             </button>
         );
+    }
+
+    getProps () {
+        return {
+            className: this.getClass(),
+            onClick: this.props.onClick
+        };
     }
 
     getClass() {
