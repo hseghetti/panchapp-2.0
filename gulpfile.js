@@ -7,6 +7,7 @@ var eslint = require('gulp-eslint');
 var gulp = require('gulp');
 var livereload = require('gulp-livereload');
 var nodemon = require('gulp-nodemon');
+var notify = require('gulp-notify');
 var path = require("path");
 var rimraf = require('rimraf');
 var sass = require('gulp-sass');
@@ -25,6 +26,14 @@ var scssPaths = [
     'components/**/*.scss'
 ];
 
+var handleErrors = function () {
+    notify.onError({
+        message: "<%= error.message %>"
+    }).apply(this, arguments);
+
+    this.emit('end');
+};
+
 gulp.task('lint', function () {
     return gulp.src(paths)
         .pipe(eslint())
@@ -38,6 +47,7 @@ gulp.task('bundle', function () {
         })
         .transform('babelify', {presets: ['es2015', 'react']})
         .bundle()
+        .on('error', handleErrors)
         .pipe(source('main.js'))
         .pipe(gulp.dest('dist'))
         .pipe(livereload());
@@ -50,6 +60,7 @@ gulp.task('bundle-prod', function () {
         })
         .transform('babelify', {presets: ['es2015', 'react']})
         .bundle()
+        .on(error, handleError)
         .pipe(source('main.js'))
         .pipe(buffer())
         .pipe(uglify())
@@ -91,7 +102,7 @@ gulp.task('start',['rimraf', 'watch'], function () {
     nodemon({
         script: 'server.js',
         watch: 'server.js'
-    });
+    })
 });
 
 gulp.task('build-prod',['copy-prod']);
