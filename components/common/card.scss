@@ -1,0 +1,33 @@
+.card {
+    background: $tertiary-gray;
+    border-radius: 10px;
+    color: $dark-gray;
+    display: inline-block;
+    height: 240px;
+    margin: 24px;
+    padding: 5px 0;
+    text-align: center;
+    transition: .2s all;
+    vertical-align: top;
+    width: 240px;
+    word-wrap: break-word;
+
+
+    &:hover {
+        box-shadow: 0 0 20px $tertiary-gray;
+    }
+
+    &--info {
+        height: 150px;
+    }
+
+    &--name {
+        font: font(45px);
+    }
+
+    &--category {
+        font: font(25px);
+        margin: 25px 0;
+        text-transform: uppercase;
+    }
+}

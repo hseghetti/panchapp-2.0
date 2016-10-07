@@ -1,0 +1,25 @@
+.header {
+    height: 100px;
+    position: relative;
+    transform: translateX(43px);
+    transition: .5s;
+
+    &--title {
+        color: $light-gray;
+        display: inline-block;
+        font: bold font(41px, Sans-Serif);
+        margin: 25px;
+        vertical-align: middle;
+    }
+
+    &_slide {
+        transform: translateX(163px);
+        transition: .5s;
+    }
+
+    &-button {
+        display: inline-block;
+        margin: 0 15px;
+        vertical-align: middle;
+    }
+}

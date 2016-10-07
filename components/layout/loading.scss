@@ -1,0 +1,44 @@
+.loading {
+
+    &_spinner {
+        background-color: $dark-gray;
+    }
+
+    &--animation {
+
+        &-container {
+            margin: 110px auto;
+            text-align: center;
+        }
+
+        &-item {
+            animation: $loading infinite alternate;
+            background: $google-blue;
+            border-radius: 50%;
+            display: inline-block;
+            height: 20px;
+            margin: 10px;
+            width: 20px;
+
+            &:nth-of-type(2) {
+                animation-delay: .2s;
+                background: $google-red;
+            }
+
+            &:nth-of-type(3) {
+                animation-delay: .4s;
+                background: $google-yellow;
+            }
+
+            &:nth-of-type(4) {
+                animation-delay: .6s;
+                background: $google-green;
+            }
+        }
+    }
+
+    &--error {
+        color: $light-gray;
+        font: bold font(45px);
+    }
+}

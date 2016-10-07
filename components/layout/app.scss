@@ -1,18 +1,19 @@
 body {
-    background-color: #222;
+    background-color: $dark-gray;
     margin: 0;
-    width: 95%;
+    overflow-x: hidden;
 }
 
 .app {
 
     &--main-content {
+        margin-right: 50px;
         padding: 10px;
         transform: translateX(43px);
         transition: .5s;
 
         &_slide {
-            transform: translateX(143px);
+            transform: translateX(153px);
             transition: .5s;
         }
     }

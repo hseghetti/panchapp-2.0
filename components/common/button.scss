@@ -1,0 +1,37 @@
+.button {
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
+    transition: .5s;
+
+    &_add {
+        animation: $fade-in;
+        background-color: $google-red;
+        border: 0;
+        border-radius: 50%;
+        color: $light-gray;
+        font: font(25px);
+        height: 55px;
+        width: 55px;
+
+        &:hover {
+            transform: scale(1.25);
+        }
+    }
+
+    &_pay {
+        background-color: transparent;
+        border: 0;
+        color: $google-orange;
+        font: 900 40px monospace;
+        padding: 15px;
+
+        &:active {
+            transform: scale(1.5);
+        }
+    }
+
+    &:focus {
+        outline: 1px;
+    }
+}
