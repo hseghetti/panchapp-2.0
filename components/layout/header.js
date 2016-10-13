@@ -8,14 +8,6 @@ import Button from 'components/common/button';
 
 class Header extends React.Component {
 
-    constructor() {
-        super();
-        this.constructor.contextTypes = {
-            sideBarOpened: React.PropTypes.bool
-        };
-        this.getClass.bind(this);
-    }
-
     render() {
         return (
             <div className={this.getClass()}>
@@ -48,10 +40,12 @@ class Header extends React.Component {
 
     scrollPage() {
         // TODO: this should be executed as a cb when closing the add card modal
-        var windowHeight = document.documentElement.clientHeight || window.innerHeight;
-
-        zenscroll.toY(windowHeight);
+        zenscroll.toY(document.documentElement.scrollHeight);
     }
 }
+
+Header.contextTypes = {
+    sideBarOpened: React.PropTypes.bool
+};
 
 export default Header;

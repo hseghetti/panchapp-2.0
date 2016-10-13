@@ -8,16 +8,12 @@ import FirebaseApp from 'lib/firebase-app';
 // COMMON COMPONENTS
 import Header from 'components/layout/header';
 import Sidebar from 'components/layout/sidebar';
+import ModalPortal from 'components/layout/modal-portal';
 
 class App extends React.Component {
 
     constructor() {
         super();
-        this.constructor.childContextTypes = {
-            sideBarOpened: React.PropTypes.bool
-        };
-        this.getChildContext.bind(this);
-        this.getContainerClass.bind(this);
         this.state = {
             sideBarOpened: false
         };
@@ -25,7 +21,8 @@ class App extends React.Component {
 
     getChildContext() {
         return {
-            sideBarOpened: this.state.sideBarOpened
+            sideBarOpened: this.state.sideBarOpened,
+            toggleSideBar: this.toggleSideBar.bind(this)
         };
     }
 
@@ -34,7 +31,7 @@ class App extends React.Component {
             <div className="app">
                 <Header />
                 {this.renderContent()}
-                <Sidebar onClickCb={this.toggleSideBar.bind(this)} />
+                <Sidebar />
             </div>
         );
     }
@@ -45,6 +42,7 @@ class App extends React.Component {
                 <FirebaseApp>
                     {this.props.children}
                 </FirebaseApp>
+                <ModalPortal />
             </div>
         );
     }
@@ -62,5 +60,10 @@ class App extends React.Component {
         });
     }
 }
+
+App.childContextTypes = {
+    sideBarOpened: React.PropTypes.bool,
+    toggleSideBar: React.PropTypes.func
+};
 
 export default App;

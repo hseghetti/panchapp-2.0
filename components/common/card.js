@@ -6,10 +6,6 @@ import Button from 'components/common/button';
 
 class Card extends React.Component {
 
-    constructor() {
-        super();
-    }
-
     render() {
         return (
             <div className="card">

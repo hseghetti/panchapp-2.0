@@ -4,15 +4,6 @@ import classNames from 'classnames';
 
 class Toggle extends React.Component {
 
-    constructor() {
-        super();
-        this.constructor.contextTypes = {
-            sideBarOpened: React.PropTypes.bool
-        };
-        this.getClass.bind(this);
-        this.getButtonClass.bind(this);
-    }
-
     render() {
         return (
             <div {...this.getProps()}>
@@ -26,27 +17,17 @@ class Toggle extends React.Component {
     }
 
     getProps() {
-        var props = {
-            className: this.getClass()
+        return {
+            className: this.getClass(),
+            onClick: this.context.toggleSideBar
         };
-
-        if (!this.context.sideBarOpened) {
-            props.onClick = this.props.onClickCb;
-        }
-
-        return props;
     }
 
     getButtonProps() {
-        var props = {
-            className: this.getButtonClass()
+        return {
+            className: this.getButtonClass(),
+            onClick: this.context.toggleSideBar
         };
-
-        if (this.context.sideBarOpened) {
-            props.onClick = this.props.onClickCb;
-        }
-
-        return props;
     }
 
     getClass() {
@@ -68,6 +49,9 @@ class Toggle extends React.Component {
     }
 }
 
-Toggle.propTypes = {onClickCb: React.PropTypes.func.isRequired};
+Toggle.contextTypes = {
+    sideBarOpened: React.PropTypes.bool,
+    toggleSideBar: React.PropTypes.func.isRequired
+};
 
 export default Toggle;
