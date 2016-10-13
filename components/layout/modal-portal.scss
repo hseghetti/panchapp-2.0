@@ -1,0 +1,12 @@
+.modal-portal {
+
+    &_displayed {
+        background-color: $dark-gray;
+        bottom: 0;
+        opacity: .9;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+}
