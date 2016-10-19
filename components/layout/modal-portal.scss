@@ -9,4 +9,12 @@
         width: 100%;
         z-index: 1;
     }
+
+    &--content {
+        left: 50%;
+        position: fixed;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+    }
 }

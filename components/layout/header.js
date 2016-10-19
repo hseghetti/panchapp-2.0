@@ -5,6 +5,7 @@ import zenscroll from 'zenscroll';
 
 // COMMON COMPONENTS
 import Button from 'components/common/button';
+import Modal from 'components/layout/modal';
 
 class Header extends React.Component {
 
@@ -32,20 +33,28 @@ class Header extends React.Component {
 
     getButtonProps() {
         return {
-            onClick: this.scrollPage,
+            onClick: this.openAddCardModal.bind(this),
             className: 'header-button',
             type: 'add'
         };
     }
 
+    openAddCardModal() {
+        this.context.toggleModalPortal(
+            <Modal type="add-card" />,
+            this.scrollPage
+        );
+    }
+
     scrollPage() {
-        // TODO: this should be executed as a cb when closing the add card modal
+        // TODO: maybe scroll to the card when added using actions?
         zenscroll.toY(document.documentElement.scrollHeight);
     }
 }
 
 Header.contextTypes = {
-    sideBarOpened: React.PropTypes.bool
+    sideBarOpened: React.PropTypes.bool,
+    toggleModalPortal: React.PropTypes.func
 };
 
 export default Header;

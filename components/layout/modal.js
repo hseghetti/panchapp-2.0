@@ -16,5 +16,7 @@ class Modal extends React.Component {
     }
 }
 
+Modal.propTypes = {type: React.PropTypes.oneOf(['default', 'add-card'])};
+
 export default Modal;
 

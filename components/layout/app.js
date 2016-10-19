@@ -15,15 +15,13 @@ class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            sideBarOpened: false,
-            modalPortalDisplayed: false
+            modalPortalDisplayed: false,
+            sideBarOpened: false
         };
     }
 
     getChildContext() {
         return {
-            openModalPortal: this.openModalPortal.bind(this),
-            modalPortalDisplayed: this.state.modalPortalDisplayed,
             sideBarOpened: this.state.sideBarOpened,
             toggleSideBar: this.toggleSideBar.bind(this)
         };
@@ -32,14 +30,15 @@ class App extends React.Component {
     render() {
         return (
             <div className="app">
-                <Header />
-                    <div className={this.getContainerClass()}>
-                        <FirebaseApp>
-                            {this.props.children}
-                        </FirebaseApp>
-                    </div>
-                <Sidebar />
-                <ModalPortal />
+                <ModalPortal>
+                    <Header />
+                        <div className={this.getContainerClass()}>
+                            <FirebaseApp>
+                                {this.props.children}
+                            </FirebaseApp>
+                        </div>
+                    <Sidebar />
+                </ModalPortal>
             </div>
         );
     }
@@ -56,17 +55,9 @@ class App extends React.Component {
             sideBarOpened: !this.state.sideBarOpened
         });
     }
-
-    openModalPortal() {
-        this.setState({
-            modalPortalDisplayed: !this.state.modalPortalDisplayed
-        });
-    }
 }
 
 App.childContextTypes = {
-    modalPortalDisplayed: React.PropTypes.bool,
-    openModalPortal: React.PropTypes.func,
     sideBarOpened: React.PropTypes.bool,
     toggleSideBar: React.PropTypes.func
 };

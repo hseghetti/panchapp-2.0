@@ -6,7 +6,7 @@ class Button extends React.Component {
 
     render() {
         return (
-            <button {...this.getProps()}>
+            <button {...this.props} {...this.getProps()}>
                 {this.props.children}
             </button>
         );
@@ -14,8 +14,7 @@ class Button extends React.Component {
 
     getProps () {
         return {
-            className: this.getClass(),
-            onClick: this.props.onClick
+            className: this.getClass()
         };
     }
 
