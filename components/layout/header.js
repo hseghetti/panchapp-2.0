@@ -46,9 +46,11 @@ class Header extends React.Component {
         );
     }
 
-    scrollPage() {
+    scrollPage(success) {
         // TODO: maybe scroll to the card when added using actions?
-        zenscroll.toY(document.documentElement.scrollHeight);
+        if (success) {
+            zenscroll.toY(document.documentElement.scrollHeight);
+        }
     }
 }
 

@@ -38,12 +38,10 @@ class Cards extends React.Component {
     }
 
     renderCards() {
-        if (!_.isEmpty(this.state.cards)) {
-            return Object.keys(this.state.cards).map(this.renderCardUsers.bind(this));
-        }
+        return Object.keys(this.state.cards).map(this.renderCard.bind(this));
     }
 
-    renderCardUsers (card, index) {
+    renderCard (card, index) {
         return <Card {...this.getCardProps(card, index)} />;
     }
 
