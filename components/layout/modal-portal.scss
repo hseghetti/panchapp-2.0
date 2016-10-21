@@ -1,20 +1,37 @@
 .modal-portal {
 
-    &_displayed {
-        background-color: $dark-gray;
-        bottom: 0;
-        opacity: .9;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 1;
+    &--layer {
+
+        &_displayed {
+            bottom: 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1;
+        }
+
+        &-background {
+            background-color: $dark-gray;
+            bottom: 0;
+            opacity: .9;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+        &-content {
+            animation: $modal-grow;
+            left: 50%;
+            position: fixed;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
     }
 
-    &--content {
-        left: 50%;
-        position: fixed;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 1;
+    &-behind-content {
+
+        &_blured {
+            filter: blur(3px);
+        }
     }
 }

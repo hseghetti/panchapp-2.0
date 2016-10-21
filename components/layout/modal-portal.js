@@ -21,9 +21,11 @@ class ModalPortal extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="modal-portal">
                 {this.renderPortal()}
+                <div className={this.getBehindContentClass()}>
                 {this.props.children}
+                </div>
             </div>
         );
     }
@@ -33,9 +35,9 @@ class ModalPortal extends React.Component {
 
         if (this.state.modalPortalDisplayed) {
             portal = (
-                <div>
-                    <div onClick={this.toggleModalPortal.bind(this)} className={this.getClass()} />
-                    <div className="modal-portal--content">
+                <div className={this.getClass()}>
+                    <div onClick={this.toggleModalPortal.bind(this)} className="modal-portal--layer-background" />
+                    <div className="modal-portal--layer-content modal-portal--layer-content_displayed">
                         {this.state.modalToDisplay}
                     </div>
                 </div>
@@ -47,8 +49,15 @@ class ModalPortal extends React.Component {
 
     getClass() {
         return classNames({
-            'modal-portal': true,
-            'modal-portal_displayed': this.state.modalPortalDisplayed
+            'modal-portal--layer': true,
+            'modal-portal--layer_displayed': this.state.modalPortalDisplayed
+        });
+    }
+
+    getBehindContentClass() {
+        return classNames({
+            'modal-portal-behind-content': true,
+            'modal-portal-behind-content_blured': this.state.modalPortalDisplayed
         });
     }
 
@@ -67,7 +76,8 @@ class ModalPortal extends React.Component {
 
     executeCallback() {
         if (!this.state.modalPortalDisplayed && this.state.closeCallback) {
-            this.state.closeCallback();
+            // TODO: Determine success using store listener
+            this.state.closeCallback(false);
         }
     }
 }

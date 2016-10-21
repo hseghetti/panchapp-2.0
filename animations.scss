@@ -1,5 +1,6 @@
 $fade-in: fadeIn 2s;
 $loading: loading .4s;
+$modal-grow: modal-grow .5s;
 
 @keyframes fadeIn {
     0% {
@@ -18,5 +19,23 @@ $loading: loading .4s;
 
     100% {
         transform: translateY(-10px);
+    }
+}
+
+@keyframes modal-grow {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+    }
+
+    25% {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(.9);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
     }
 }

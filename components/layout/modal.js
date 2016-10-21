@@ -10,7 +10,24 @@ class Modal extends React.Component {
     render() {
         return (
             <div className="modal">
-                Modal Content
+                {this.renderModalContent()}
+            </div>
+        );
+    }
+
+    renderModalContent() {
+        var types = {
+            'add-card' : this.renderAddCardModalContent
+        };
+
+        return types[this.props.type]();
+    }
+
+    renderAddCardModalContent() {
+        return (
+            <div>
+                User List
+                Reason List
             </div>
         );
     }
