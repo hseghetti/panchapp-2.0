@@ -72,6 +72,7 @@ gulp.task('sass', function () {
         .pipe(scsslint({config: 'lint.yml'}))
         .pipe(concat('globals.scss'))
         .pipe(sass())
+        .on('error', handleErrors)
         .pipe(concat('styles.css'))
         .pipe(cleancss())
         .pipe(gulp.dest('dist'))
@@ -93,7 +94,7 @@ gulp.task('rimraf', function () {
 });
 
 gulp.task('watch', ['copy', 'sass'], function () {
-    livereload.listen(35730);
+    livereload.listen(35680);
     gulp.watch(paths, ['copy']);
     gulp.watch(scssPaths, ['sass']);
 });
