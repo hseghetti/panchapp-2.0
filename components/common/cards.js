@@ -52,7 +52,8 @@ class Cards extends React.Component {
             category: card.cat,
             date: card.date,
             key: index,
-            name: card.name
+            name: card.name,
+            wait: index * 100
         };
     }
 

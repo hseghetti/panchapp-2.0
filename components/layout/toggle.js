@@ -31,14 +31,10 @@ class Toggle extends React.Component {
     }
 
     getClass() {
-        var classes = {
+        return classNames({
             toggle: true,
             toggle_slide: this.context.sideBarOpened
-        };
-
-        classes[this.props.className] = (this.props.className);
-
-        return classNames(classes);
+        }, this.props.className);
     }
 
     getButtonClass() {

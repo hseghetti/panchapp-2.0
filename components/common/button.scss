@@ -23,8 +23,7 @@
         background-color: transparent;
         border: 0;
         color: $google-orange;
-        font: 900 40px monospace;
-        padding: 15px;
+        font: 900 font(40px);
 
         &:active {
             transform: scale(1.5);

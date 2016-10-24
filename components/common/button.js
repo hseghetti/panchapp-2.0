@@ -19,15 +19,11 @@ class Button extends React.Component {
     }
 
     getClass() {
-        var classes = {
+        return classNames({
             button: true,
             'button_add': this.props.type === 'add',
             'button_pay': this.props.type === 'pay'
-        };
-
-        classes[this.props.className] = (this.props.className);
-
-        return classNames(classes);
+        }, this.props.className);
     }
 }
 

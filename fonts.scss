@@ -1,10 +1,8 @@
 @function font($font-size, $font-family: false) {
 
-    $line-height: ceil(1.384 * $font-size);
-
     @if $font-family == false {
         $font-family: monospace;
     }
 
-    @return #{$font-size}/#{$line-height} $font-family;
+    @return #{$font-size} $font-family;
 }

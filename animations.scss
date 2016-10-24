@@ -1,6 +1,7 @@
 $fade-in: fadeIn 2s;
 $loading: loading .4s;
 $modal-grow: modal-grow .5s;
+$slide-in: slide-in 1s;
 
 @keyframes fadeIn {
     0% {
@@ -37,5 +38,19 @@ $modal-grow: modal-grow .5s;
 
     100% {
         transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translateX(-500px) translateY(-20px) scale(.5);
+    }
+
+    50% {
+        transform: translateX(50px) translateY(30px) scale(.5);
+    }
+
+    100% {
+        transform: translateX(0) translateY(0) scale(1);
     }
 }

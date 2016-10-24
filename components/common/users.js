@@ -8,6 +8,9 @@ import { instance as firebaseStore } from 'lib/firebase-store';
 // LAYOUT COMPONENTS
 import Loading from 'components/layout/loading';
 
+// COMMON COMPONENTS
+import User from 'components/common/user';
+
 class Users extends React.Component {
 
     constructor() {
@@ -35,13 +38,17 @@ class Users extends React.Component {
     }
 
     renderUsers() {
-        return Object.keys(this.state.users).map(this.renderUser.bind(this));
+        return <div className="users--grid">{Object.keys(this.state.users).map(this.renderUser.bind(this))}</div>;
     }
 
-    renderUser (user) {
+    renderUser (user, index) {
         var user = this.state.users[user];
 
-        return user.displayName;
+        return (
+            <div key={index} className="users--grid-item">
+                <User wait={index * 50} displayName={user.displayName} />
+            </div>
+        );
     }
 
     loadUsers() {
