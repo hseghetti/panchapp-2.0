@@ -1,6 +1,5 @@
 // VENDOR LIBS
 import React from 'react';
-import _ from 'lodash';
 
 // LIBS
 import { instance as firebaseStore } from 'lib/firebase-store';
@@ -30,19 +29,17 @@ class Users extends React.Component {
     render() {
         return (
             <div className="users">
-                <Loading loading={_.isEmpty(this.state.users)}>
-                    {this.renderUsers()}
+                <Loading loading={!this.state.users.length}>
+                    <div className="users--grid">
+                        {this.state.users.map(this.renderUser.bind(this))}
+                    </div>
                 </Loading>
             </div>
         );
     }
 
-    renderUsers() {
-        return <div className="users--grid">{Object.keys(this.state.users).map(this.renderUser.bind(this))}</div>;
-    }
-
     renderUser (user, index) {
-        var user = this.state.users[user];
+        var user = this.state.users[index];
 
         return (
             <div key={index} className="users--grid-item">
