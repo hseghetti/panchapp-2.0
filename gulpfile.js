@@ -103,7 +103,7 @@ gulp.task('start',['rimraf', 'watch'], function () {
     nodemon({
         script: 'server.js',
         watch: 'server.js'
-    })
+    });
 });
 
 gulp.task('build-prod',['copy-prod']);
