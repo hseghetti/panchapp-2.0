@@ -5,7 +5,7 @@ import zenscroll from 'zenscroll';
 
 // COMMON COMPONENTS
 import Button from 'components/common/button';
-import Modal from 'components/layout/modal';
+import AddCardModal from 'components/common/add-card-modal';
 
 class Header extends React.Component {
 
@@ -41,7 +41,7 @@ class Header extends React.Component {
 
     openAddCardModal() {
         this.context.toggleModalPortal(
-            <Modal type="add-card" />,
+            <AddCardModal />,
             this.scrollPage
         );
     }
