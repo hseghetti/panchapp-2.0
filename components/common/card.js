@@ -1,6 +1,7 @@
 // VENDOR LIBS
 import React from 'react';
 import classNames from 'classnames';
+import moment from 'moment';
 
 // COMMON COMPONENTS
 import Button from 'components/common/button';
@@ -30,7 +31,9 @@ class Card extends React.Component {
                     <div className="card--info-label">Reason</div>
                     <div className="card--category">{this.props.category}</div>
                     <div className="card--info-label">Date</div>
-                    <div className="card--date">{this.props.date}</div>
+                    <div className="card--date">
+                        {moment(this.props.date, 'MM/DD/YYYY, HH:mm').format('DD MMM YYYY, HH:mm')}
+                    </div>
                 </div>
             </div>
         );
