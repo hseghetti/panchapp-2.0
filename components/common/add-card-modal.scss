@@ -16,14 +16,52 @@
         vertical-align: middle;
         width: 50%;
 
+        &_item-selected {
+            animation: $grow-from-back .5s;
+        }
+
         &:hover {
             background-color: $neutral-gray3;
         }
     }
 
+    &--submit {
+        bottom: 10px;
+        left: 50%;
+        position: absolute;
+        transform: translateX(-50%) translateY(-10px);
+        visibility: hidden;
+
+        &_displayed {
+            transform: translateX(-50%) translateY(0);
+            transition: .3s;
+            visibility: visible;
+        }
+    }
+
+    &--paper-plane {
+        height: 50px;
+        margin: -6px;
+        width: 50px;
+    }
+
     &--list {
+        animation: $slide-in-left .5s;
         display: table-cell;
         text-align: center;
         vertical-align: middle;
+        width: 50%;
+
+        &-item {
+            display: inline-block;
+            margin: 0 5px;
+
+            &:hover {
+                color: $neutral-gray4;
+                cursor: pointer;
+                transform: scale(1.1);
+                transition: .2s;
+            }
+        }
     }
 }

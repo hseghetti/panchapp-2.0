@@ -24,7 +24,7 @@ class ModalPortal extends React.Component {
             <div className="modal-portal">
                 {this.renderPortal()}
                 <div className={this.getBehindContentClass()}>
-                {this.props.children}
+                    {this.props.children}
                 </div>
             </div>
         );

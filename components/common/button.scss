@@ -30,6 +30,19 @@
         }
     }
 
+    &_submit {
+        background-color: $google-green;
+        border: 0;
+        border-radius: 50%;
+        font: font(25px);
+        height: 50px;
+        width: 50px;
+
+        &:hover {
+            background-color: lighten($google-green, 10%);
+        }
+    }
+
     &:focus {
         outline: 1px;
     }
