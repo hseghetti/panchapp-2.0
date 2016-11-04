@@ -1,12 +1,16 @@
 // VENDOR LIBS
 import React from 'react';
 import classNames from 'classnames';
+import moment from 'moment';
 
 // LIBS
 import { instance as firebaseStore } from 'lib/firebase-store';
 
 // COMMON COMPONENTS
 import Button from 'components/common/button';
+
+// LAYOUT COMPONENTS
+import Loading from 'components/layout/loading';
 
 class AddCardModal extends React.Component {
 
@@ -16,6 +20,7 @@ class AddCardModal extends React.Component {
         firebaseStore.addChangeListener(this.loadUsers.bind(this));
 
         this.state = {
+            pushing: false,
             reasonListOpened: false,
             reasonSelected: '',
             userListOpened: false,
@@ -31,6 +36,10 @@ class AddCardModal extends React.Component {
     }
 
     render() {
+        return (this.state.pushing) ? <Loading loading /> : this.renderContent();
+    }
+
+    renderContent() {
         return (
             <div className="add-card-modal">
                 {this.renderPicker('user')}
@@ -62,8 +71,14 @@ class AddCardModal extends React.Component {
     }
 
     renderSubmitButton() {
+        var props = {
+            className: this.getSubmitButtonClass(),
+            onClick: this.handleSubmitButtonClick.bind(this),
+            type: 'submit'
+        };
+
         return (
-            <Button type="submit" className={this.getSubmitButtonClass()}>
+            <Button {...props}>
                 <img className="add-card-modal--paper-plane" src={'resources/paper-plane.png'} />
             </Button>
         );
@@ -108,6 +123,25 @@ class AddCardModal extends React.Component {
         });
     }
 
+    handleSubmitButtonClick() {
+        if (this.state.userSelected !== 'Pick User') {
+            this.setState({
+                pushing: true //TODO: setup a "storeIsSearching" that can be used across the app
+            });
+            this.context.firebaseRefs.cards.push({
+                cat: this.state.reasonSelected,
+                date: moment().utcOffset('-03:00').format('MM/DD/YYYY, HH:mm'),
+                name: this.state.userSelected
+            }, this.handleDone.bind(this));
+        }
+    }
+
+    handleDone() {
+        this.setState({
+            pushing: false
+        }, this.context.toggleModalPortal);
+    }
+
     setItemSelected(text, type) {
         var newState = {};
 
@@ -130,6 +164,11 @@ class AddCardModal extends React.Component {
         });
     }
 }
+
+AddCardModal.contextTypes = {
+    firebaseRefs: React.PropTypes.object,
+    toggleModalPortal: React.PropTypes.func
+};
 
 export default AddCardModal;
 

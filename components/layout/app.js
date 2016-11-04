@@ -30,15 +30,15 @@ class App extends React.Component {
     render() {
         return (
             <div className="app">
-                <ModalPortal>
-                    <Header />
-                        <div className={this.getContainerClass()}>
-                            <FirebaseApp>
+                <FirebaseApp>
+                    <ModalPortal>
+                        <Header />
+                            <div className={this.getContainerClass()}>
                                 {this.props.children}
-                            </FirebaseApp>
-                        </div>
-                    <Sidebar />
-                </ModalPortal>
+                            </div>
+                        <Sidebar />
+                    </ModalPortal>
+                </FirebaseApp>
             </div>
         );
     }
