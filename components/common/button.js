@@ -6,22 +6,28 @@ class Button extends React.Component {
 
     render() {
         return (
-            <button className={this.getClass()}>
+            <button {...this.props} {...this.getProps()}>
                 {this.props.children}
             </button>
         );
     }
 
-    getClass() {
-        var classes = {
-            button: true,
-            'button_add': this.props.type === 'add',
-            'button_pay': this.props.type === 'pay'
+    getProps () {
+        return {
+            className: this.getClass()
         };
+    }
 
-        classes[this.props.className] = (this.props.className);
+    getClass() {
+        var props = this.props;
+        var type = props.type;
 
-        return classNames(classes);
+        return classNames({
+            button: true,
+            'button_add': type === 'add',
+            'button_pay': type === 'pay',
+            'button_submit': type === 'submit'
+        }, props.className);
     }
 }
 

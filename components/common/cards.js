@@ -1,6 +1,5 @@
 // VENDOR LIBS
 import React from 'react';
-import _ from 'lodash';
 
 // LIBS
 import { instance as firebaseStore } from 'lib/firebase-store';
@@ -30,31 +29,22 @@ class Cards extends React.Component {
     render() {
         return (
             <div className="cards">
-                <Loading loading={_.isEmpty(this.state.cards)}>
-                    {this.renderCards()}
+                <Loading loading={!this.state.cards.length}>
+                    {this.state.cards.map(this.renderCard.bind(this))}
                 </Loading>
             </div>
         );
     }
 
-    renderCards() {
-        if (!_.isEmpty(this.state.cards)) {
-            return Object.keys(this.state.cards).map(this.renderCardUsers.bind(this));
-        }
-    }
-
-    renderCardUsers (card, index) {
+    renderCard (card, index) {
         return <Card {...this.getCardProps(card, index)} />;
     }
 
     getCardProps(card, index) {
-        var card = this.state.cards[card];
-
         return {
-            category: card.cat,
-            date: card.date,
+            cardData: card,
             key: index,
-            name: card.name
+            wait: index * 100
         };
     }
 

@@ -1,0 +1,53 @@
+.user {
+    background-color: $light-gray;
+    display: inline-block;
+    height: 100px;
+    margin: 5px;
+    min-width: 100px;
+    position: relative;
+    text-align: center;
+    transform: translateX(-200px) translateY(-100px);
+    visibility: hidden;
+
+    &_displayed {
+        transform: translateX(0) translateY(0);
+        transition: .2s all;
+        visibility: visible;
+    }
+
+    &--name {
+        font: font(25px);
+        margin-top: 35px;
+        padding: 0 10px;
+    }
+
+    &--icon {
+        display: none;
+
+        &-pencil {
+            left: 5px;
+        }
+
+        &-bin {
+            right: 5px;
+        }
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    &:hover {
+        transform: scale(1.1);
+        transition: .2s;
+
+        .user--icon {
+            bottom: 5px;
+            display: inline-block;
+            height: 20px;
+            opacity: .7;
+            position: absolute;
+            width: 20px;
+        }
+    }
+}

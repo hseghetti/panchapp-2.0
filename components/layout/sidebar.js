@@ -8,14 +8,6 @@ import Toggle from 'components/layout/toggle';
 
 class Sidebar extends React.Component {
 
-    constructor() {
-        super();
-        this.constructor.contextTypes = {
-            sideBarOpened: React.PropTypes.bool
-        };
-        this.getClass.bind(this);
-    }
-
     render() {
         var links = [
             {dir: '/cards', label: 'Cards'},
@@ -28,7 +20,7 @@ class Sidebar extends React.Component {
                 <div className={this.getClass()}>
                     {links.map(this.renderLinks)}
                 </div>
-                <Toggle onClickCb={this.props.onClickCb} />
+                <Toggle />
             </div>
         );
     }
@@ -56,6 +48,8 @@ class Sidebar extends React.Component {
     }
 }
 
-Sidebar.propTypes = {onClickCb: React.PropTypes.func.isRequired};
+Sidebar.contextTypes = {
+    sideBarOpened: React.PropTypes.bool
+};
 
 export default Sidebar;

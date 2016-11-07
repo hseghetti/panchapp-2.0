@@ -1,6 +1,7 @@
 // VENDOR LIBS
 import React from 'react';
 import classNames from 'classnames';
+import _ from 'lodash';
 
 // LIBS
 import FirebaseApp from 'lib/firebase-app';
@@ -8,42 +9,37 @@ import FirebaseApp from 'lib/firebase-app';
 // COMMON COMPONENTS
 import Header from 'components/layout/header';
 import Sidebar from 'components/layout/sidebar';
+import ModalPortal from 'components/layout/modal-portal';
 
 class App extends React.Component {
 
     constructor() {
         super();
-        this.constructor.childContextTypes = {
-            sideBarOpened: React.PropTypes.bool
-        };
-        this.getChildContext.bind(this);
-        this.getContainerClass.bind(this);
         this.state = {
+            modalPortalDisplayed: false,
             sideBarOpened: false
         };
     }
 
     getChildContext() {
         return {
-            sideBarOpened: this.state.sideBarOpened
+            location: _.get(this.props, 'location.pathname', '').replace('/', ''),
+            sideBarOpened: this.state.sideBarOpened,
+            toggleSideBar: this.toggleSideBar.bind(this)
         };
     }
 
     render() {
         return (
             <div className="app">
-                <Header />
-                {this.renderContent()}
-                <Sidebar onClickCb={this.toggleSideBar.bind(this)} />
-            </div>
-        );
-    }
-
-    renderContent() {
-        return (
-            <div className={this.getContainerClass()}>
                 <FirebaseApp>
-                    {this.props.children}
+                    <ModalPortal>
+                        <Header />
+                        <Sidebar />
+                        <div className={this.getContainerClass()}>
+                            {this.props.children}
+                        </div>
+                    </ModalPortal>
                 </FirebaseApp>
             </div>
         );
@@ -62,5 +58,11 @@ class App extends React.Component {
         });
     }
 }
+
+App.childContextTypes = {
+    location: React.PropTypes.string,
+    sideBarOpened: React.PropTypes.bool,
+    toggleSideBar: React.PropTypes.func
+};
 
 export default App;

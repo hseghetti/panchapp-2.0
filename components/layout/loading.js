@@ -17,6 +17,10 @@ class Loading extends React.Component {
         firebaseStore.addChangeListener(this.setErrorMessage.bind(this));
     }
 
+    componentWillUnmount() {
+        firebaseStore.removeChangeListener(this.setErrorMessage.bind(this));
+    }
+
     render() {
         return (
             <div className={this.getClass()}>

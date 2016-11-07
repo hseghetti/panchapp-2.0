@@ -12,6 +12,7 @@ class DataStore extends EventEmitter {
     constructor() {
        super();
        dispatcher.registerStore(this);
+       this.setMaxListeners(0);
     }
 
     emitChange() {
@@ -19,7 +20,7 @@ class DataStore extends EventEmitter {
     }
 
     addChangeListener(callback) {
-        this.on(CHANGE_EVENT, callback);
+        this.addListener(CHANGE_EVENT, callback);
     }
 
     removeChangeListener(callback) {

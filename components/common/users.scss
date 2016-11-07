@@ -1,3 +1,12 @@
 .users {
-    background-color: $light-gray;
+
+    &--grid {
+        margin: auto;
+        text-align: center;
+        width: 800px;
+
+        &-item {
+            display: inline-block;
+        }
+    }
 }
