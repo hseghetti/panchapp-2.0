@@ -7,15 +7,23 @@ class User extends React.Component {
     constructor() {
         super();
 
+        this.timeout = null;
         this.state = {
-            hidden: true
+            hidden: true,
+            unmounted: false
         };
     }
 
     componentWillMount() {
+        this.timeout = this.props.wait; //TODO: extract timeout functionality to a new wrapper
+
         setTimeout(function () {
             this.show();
-        }.bind(this), this.props.wait);
+        }.bind(this), this.timeout);
+    }
+
+    componentWillUnmount() {
+        this.timeout = null;
     }
 
     render() {
@@ -49,7 +57,9 @@ class User extends React.Component {
     }
 
     show() {
-        this.setState({hidden: false});
+        if (this.timeout !== null) {
+            this.setState({hidden: false});
+        }
     }
 }
 

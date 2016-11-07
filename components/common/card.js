@@ -2,6 +2,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import moment from 'moment';
+import _ from 'lodash';
 
 // LIBS
 import firebaseServiceCaller from 'lib/firebase-service-caller';
@@ -14,6 +15,7 @@ class Card extends React.Component {
     constructor() {
         super();
 
+        this.timeout = null;
         this.state = {
             hidden: true
         };
@@ -23,9 +25,15 @@ class Card extends React.Component {
     }
 
     componentWillMount() {
+        this.timeout = this.props.wait; //TODO: extract timeout functionality to a new wrapper
+
         setTimeout(function () {
             this.show();
         }.bind(this), this.props.wait);
+    }
+
+    componentWillUnmount() {
+        this.timeout = null;
     }
 
     render() {
@@ -71,19 +79,22 @@ class Card extends React.Component {
     }
 
     isReallyOld() {
-        return moment(this.props.cardData.date).isBefore(moment().subtract(5, 'weeks'));
+        return moment(this.props.cardData.date, 'MM/DD/YYYY, HH:mm').isBefore(moment().subtract(5, 'weeks'));
     }
 
     removeCard() {
-        var cardId = this.props.cardData.id;
+        var cardData = this.props.cardData;
+        var promptResponse = prompt('Why are you removing this card?', 'Payed');
 
-        if (cardId) {
-            firebaseServiceCaller.delete('cards', cardId);
+        if (!_.isEmpty(cardData) && promptResponse) {
+            firebaseServiceCaller.delete('cards', cardData, promptResponse);
         }
     }
 
     show() {
-        this.setState({hidden: false});
+        if (this.timeout !== null) {
+            this.setState({hidden: false});
+        }
     }
 }
 

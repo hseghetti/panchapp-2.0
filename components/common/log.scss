@@ -1,3 +1,9 @@
 .log {
-    background-color: $light-gray;
+
+    &--item {
+        border-left: 1px solid $light-gray;
+        color: $light-gray;
+        list-style-type: none;
+        padding: 5px;
+    }
 }

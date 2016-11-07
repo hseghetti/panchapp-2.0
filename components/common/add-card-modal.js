@@ -8,6 +8,9 @@ import _ from 'lodash';
 import { instance as firebaseStore } from 'lib/firebase-store';
 import firebaseServiceCaller from 'lib/firebase-service-caller';
 
+// LAYOUT COMPONENTS
+import Loading from 'components/layout/loading';
+
 // COMMON COMPONENTS
 import Button from 'components/common/button';
 
@@ -19,6 +22,7 @@ class AddCardModal extends React.Component {
         firebaseStore.addChangeListener(this.firebaseStoreChanged.bind(this));
 
         this.state = {
+            loading: false,
             reasonListOpened: false,
             reasonSelected: '',
             userListOpened: false,
@@ -34,6 +38,10 @@ class AddCardModal extends React.Component {
     }
 
     render() {
+        return (this.state.loading) ? <Loading loading /> : this.renderContent();
+    }
+
+    renderContent() {
         return (
             <div className="add-card-modal">
                 {this.renderTitle()}
@@ -128,6 +136,9 @@ class AddCardModal extends React.Component {
 
     handleSubmitButtonClick() {
         if (this.state.userSelected !== 'Pick User') {
+            this.setState({
+                loading: true
+            });
             firebaseServiceCaller.update('cards', {
                 cat: this.state.reasonSelected,
                 date: moment().utcOffset('-03:00').format('MM/DD/YYYY, HH:mm'),

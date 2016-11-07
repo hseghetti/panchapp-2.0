@@ -1,6 +1,7 @@
 // VENDOR LIBS
 import React from 'react';
 import classNames from 'classnames';
+import _ from 'lodash';
 
 // LIBS
 import FirebaseApp from 'lib/firebase-app';
@@ -22,6 +23,7 @@ class App extends React.Component {
 
     getChildContext() {
         return {
+            location: _.get(this.props, 'location.pathname', '').replace('/', ''),
             sideBarOpened: this.state.sideBarOpened,
             toggleSideBar: this.toggleSideBar.bind(this)
         };
@@ -58,6 +60,7 @@ class App extends React.Component {
 }
 
 App.childContextTypes = {
+    location: React.PropTypes.string,
     sideBarOpened: React.PropTypes.bool,
     toggleSideBar: React.PropTypes.func
 };

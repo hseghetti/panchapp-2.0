@@ -13,15 +13,24 @@ class Header extends React.Component {
         return (
             <div className={this.getClass()}>
                 {this.renderTitle()}
-                <Button {...this.getButtonProps()}>
-                    +
-                </Button>
+                {this.renderAddButton()}
             </div>
         );
     }
 
     renderTitle() {
         return <div className="header--title">PanchApp 2.0</div>;
+    }
+
+    renderAddButton() {
+        //TODO: Fix this to work with each page
+        var buttonToRender = null;
+
+        if (this.context.location === 'cards')  {
+            buttonToRender = <Button {...this.getButtonProps()}>+</Button>;
+        }
+
+        return buttonToRender;
     }
 
     getClass() {
@@ -55,6 +64,7 @@ class Header extends React.Component {
 }
 
 Header.contextTypes = {
+    location: React.PropTypes.string,
     sideBarOpened: React.PropTypes.bool,
     toggleModalPortal: React.PropTypes.func
 };
