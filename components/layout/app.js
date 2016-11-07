@@ -33,10 +33,10 @@ class App extends React.Component {
                 <FirebaseApp>
                     <ModalPortal>
                         <Header />
-                            <div className={this.getContainerClass()}>
-                                {this.props.children}
-                            </div>
                         <Sidebar />
+                        <div className={this.getContainerClass()}>
+                            {this.props.children}
+                        </div>
                     </ModalPortal>
                 </FirebaseApp>
             </div>

@@ -2,25 +2,23 @@
 import React from 'react';
 import classNames from 'classnames';
 import moment from 'moment';
+import _ from 'lodash';
 
 // LIBS
 import { instance as firebaseStore } from 'lib/firebase-store';
+import firebaseServiceCaller from 'lib/firebase-service-caller';
 
 // COMMON COMPONENTS
 import Button from 'components/common/button';
-
-// LAYOUT COMPONENTS
-import Loading from 'components/layout/loading';
 
 class AddCardModal extends React.Component {
 
     constructor() {
         super();
 
-        firebaseStore.addChangeListener(this.loadUsers.bind(this));
+        firebaseStore.addChangeListener(this.firebaseStoreChanged.bind(this));
 
         this.state = {
-            pushing: false,
             reasonListOpened: false,
             reasonSelected: '',
             userListOpened: false,
@@ -32,19 +30,24 @@ class AddCardModal extends React.Component {
     }
 
     componentWillUnmount() {
-        firebaseStore.removeChangeListener(this.loadUsers.bind(this));
+        firebaseStore.removeChangeListener(this.firebaseStoreChanged.bind(this));
     }
 
     render() {
-        return (this.state.pushing) ? <Loading loading /> : this.renderContent();
-    }
-
-    renderContent() {
         return (
             <div className="add-card-modal">
+                {this.renderTitle()}
                 {this.renderPicker('user')}
                 {this.renderPicker('reason')}
                 {this.renderSubmitButton()}
+            </div>
+        );
+    }
+
+    renderTitle() {
+        return (
+            <div className="add-card-modal--title">
+                Add New Card
             </div>
         );
     }
@@ -87,7 +90,7 @@ class AddCardModal extends React.Component {
     renderList(type) {
         var reasons = [
             'Panched',
-            'Filth',
+            'Garbage',
             'Phone rings in a meeting',
             'New member',
             'Birthday',
@@ -125,21 +128,12 @@ class AddCardModal extends React.Component {
 
     handleSubmitButtonClick() {
         if (this.state.userSelected !== 'Pick User') {
-            this.setState({
-                pushing: true //TODO: setup a "storeIsSearching" that can be used across the app
-            });
-            this.context.firebaseRefs.cards.push({
+            firebaseServiceCaller.update('cards', {
                 cat: this.state.reasonSelected,
                 date: moment().utcOffset('-03:00').format('MM/DD/YYYY, HH:mm'),
                 name: this.state.userSelected
-            }, this.handleDone.bind(this));
+            }, this.context.toggleModalPortal);
         }
-    }
-
-    handleDone() {
-        this.setState({
-            pushing: false
-        }, this.context.toggleModalPortal);
     }
 
     setItemSelected(text, type) {
@@ -158,15 +152,16 @@ class AddCardModal extends React.Component {
         this.setState(newState);
     }
 
-    loadUsers() {
-        this.setState({
-            users: firebaseStore.getUsers()
-        });
+    firebaseStoreChanged() {
+        var users = firebaseStore.getUsers();
+
+        if (!_.isEqual(users, this.state.users)) {
+            this.setState({users: users});
+        }
     }
 }
 
 AddCardModal.contextTypes = {
-    firebaseRefs: React.PropTypes.object,
     toggleModalPortal: React.PropTypes.func
 };
 

@@ -41,13 +41,9 @@ class Cards extends React.Component {
     }
 
     getCardProps(card, index) {
-        var card = this.state.cards[index];
-
         return {
-            category: card.cat,
-            date: card.date,
+            cardData: card,
             key: index,
-            name: card.name,
             wait: index * 100
         };
     }
