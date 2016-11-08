@@ -19,8 +19,6 @@ class AddCardModal extends React.Component {
     constructor() {
         super();
 
-        firebaseStore.addChangeListener(this.firebaseStoreChanged.bind(this));
-
         this.state = {
             loading: false,
             reasonListOpened: false,
@@ -29,6 +27,8 @@ class AddCardModal extends React.Component {
             users: firebaseStore.getUsers(),
             userSelected: ''
         };
+
+        firebaseStore.addChangeListener(this.firebaseStoreChanged.bind(this));
 
         this.getPickerClass.bind(this);
     }

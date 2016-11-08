@@ -25,8 +25,9 @@ class Header extends React.Component {
     renderAddButton() {
         //TODO: Fix this to work with each page
         var buttonToRender = null;
+        var location = this.context.location;
 
-        if (this.context.location === 'cards')  {
+        if (location === 'cards' || !location)  {
             buttonToRender = <Button {...this.getButtonProps()}>+</Button>;
         }
 

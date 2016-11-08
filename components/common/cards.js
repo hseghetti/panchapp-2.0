@@ -15,11 +15,10 @@ class Cards extends React.Component {
     constructor() {
         super();
 
-        firebaseStore.addChangeListener(this.loadCards.bind(this));
-
         this.state = {
             cards: firebaseStore.getCards()
         };
+        firebaseStore.addChangeListener(this.loadCards.bind(this));
     }
 
     componentWillUnmount() {
