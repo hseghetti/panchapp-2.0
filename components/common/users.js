@@ -15,11 +15,10 @@ class Users extends React.Component {
     constructor() {
         super();
 
-        firebaseStore.addChangeListener(this.loadUsers.bind(this));
-
         this.state = {
             users: firebaseStore.getUsers()
         };
+        firebaseStore.addChangeListener(this.loadUsers.bind(this));
     }
 
     componentWillUnmount() {

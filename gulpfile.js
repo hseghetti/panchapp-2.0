@@ -1,6 +1,6 @@
 // VENDOR LIBS
 var browserify = require('browserify');
-var buffer = require('vinyl-buffer');
+var streamify = require('gulp-streamify');
 var cleancss = require('gulp-clean-css');
 var concat = require('gulp-concat');
 var eslint = require('gulp-eslint');
@@ -60,10 +60,8 @@ gulp.task('bundle-prod', function () {
         })
         .transform('babelify', {presets: ['es2015', 'react']})
         .bundle()
-        .on(error, handleError)
         .pipe(source('main.js'))
-        .pipe(buffer())
-        .pipe(uglify())
+        .pipe(streamify(uglify()))
         .pipe(gulp.dest('dist'));
 });
 
@@ -79,12 +77,21 @@ gulp.task('sass', function () {
         .pipe(livereload());
 });
 
+gulp.task('sass-prod', function () {
+    gulp.src(scssPaths)
+        .pipe(concat('globals.scss'))
+        .pipe(sass())
+        .pipe(concat('styles.css'))
+        .pipe(cleancss())
+        .pipe(gulp.dest('dist'));
+});
+
 gulp.task('copy', ['lint', 'bundle'], function () {
     return gulp.src(['index.html', 'style.css'])
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('copy-prod', ['bundle-prod', 'sass'], function () {
+gulp.task('copy-prod', ['bundle-prod', 'sass-prod'], function () {
     return gulp.src(['index.html', 'style.css'])
         .pipe(gulp.dest('dist'));
 });
@@ -106,6 +113,6 @@ gulp.task('start',['rimraf', 'watch'], function () {
     });
 });
 
-gulp.task('build-prod',['copy-prod']);
+gulp.task('heroku:production', ['copy-prod']);
 
 gulp.task('default', ['start']);

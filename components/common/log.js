@@ -12,11 +12,10 @@ class Log extends React.Component {
     constructor() {
         super();
 
-        firebaseStore.addChangeListener(this.loadLogs.bind(this));
-
         this.state = {
             logs: firebaseStore.getLog() || []
         };
+        firebaseStore.addChangeListener(this.loadLogs.bind(this));
     }
 
     componentWillUnmount() {

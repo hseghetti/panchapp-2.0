@@ -19,16 +19,17 @@ class AddCardModal extends React.Component {
     constructor() {
         super();
 
-        firebaseStore.addChangeListener(this.firebaseStoreChanged.bind(this));
-
         this.state = {
             loading: false,
+            otherInputValue: '',
             reasonListOpened: false,
             reasonSelected: '',
             userListOpened: false,
             users: firebaseStore.getUsers(),
             userSelected: ''
         };
+
+        firebaseStore.addChangeListener(this.firebaseStoreChanged.bind(this));
 
         this.getPickerClass.bind(this);
     }
@@ -96,8 +97,10 @@ class AddCardModal extends React.Component {
     }
 
     renderList(type) {
+        var contentToRender = null;
         var reasons = [
             'Panched',
+            'Panch Failure',
             'Garbage',
             'Phone rings in a meeting',
             'New member',
@@ -106,7 +109,15 @@ class AddCardModal extends React.Component {
         ];
         var array = (type === 'user') ? this.state.users : reasons;
 
-        return <span className="add-card-modal--list">{array.map(this.renderItem.bind(this, type))}</span>;
+        if (this.state.renderOtherInput && type === 'reason') {
+            contentToRender = (
+                <input {...this.getInputProps()} />
+            );
+        } else {
+            contentToRender = array.map(this.renderItem.bind(this, type));
+        }
+
+        return <span className="add-card-modal--list">{contentToRender}</span>;
     }
 
     renderItem(type, item, index) {
@@ -114,7 +125,7 @@ class AddCardModal extends React.Component {
         var props = {
             className: 'add-card-modal--list-item',
             key: index,
-            onClick: this.setItemSelected.bind(this, text, type)
+            onClick: this.handleItemClick.bind(this, text, type)
         };
 
         return <div {...props}>{text}</div>;
@@ -127,23 +138,45 @@ class AddCardModal extends React.Component {
         });
     }
 
+    getInputProps() {
+        return {
+            className: 'add-card-modal--other-reason',
+            maxLength: 30,
+            onChange: this.updateFieldValue.bind(this),
+            placeholder: 'Why...?',
+            type: 'text'
+        };
+    }
+
     getSubmitButtonClass() {
         return classNames({
             'add-card-modal--submit': true,
-            'add-card-modal--submit_displayed': this.state.userSelected && this.state.reasonSelected,
+            'add-card-modal--submit_displayed': this.shouldRenderButton(),
         });
     }
 
     handleSubmitButtonClick() {
-        if (this.state.userSelected !== 'Pick User') {
+        var state = this.state;
+
+        if (state.userSelected !== 'Pick User' && (state.reasonSelected || state.otherInputValue)) {
             this.setState({
                 loading: true
             });
             firebaseServiceCaller.update('cards', {
-                cat: this.state.reasonSelected,
+                cat: state.reasonSelected || state.otherInputValue,
                 date: moment().utcOffset('-03:00').format('MM/DD/YYYY, HH:mm'),
-                name: this.state.userSelected
+                name: state.userSelected
             }, this.context.toggleModalPortal);
+        }
+    }
+
+    handleItemClick(text, type) {
+        if (type === 'reason' && text.indexOf('Other') !== -1) {
+            this.setState({
+                renderOtherInput: true
+            });
+        } else {
+            this.setItemSelected(text, type);
         }
     }
 
@@ -161,6 +194,16 @@ class AddCardModal extends React.Component {
 
         newState[type + 'ListOpened'] = true;
         this.setState(newState);
+    }
+
+    updateFieldValue(event) {
+        this.setState({
+            otherInputValue: event.target.value
+        });
+    }
+
+    shouldRenderButton() {
+        return (this.state.userSelected && (this.state.reasonSelected || this.state.otherInputValue));
     }
 
     firebaseStoreChanged() {
