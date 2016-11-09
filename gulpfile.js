@@ -1,6 +1,5 @@
 // VENDOR LIBS
 var browserify = require('browserify');
-var streamify = require('gulp-streamify');
 var cleancss = require('gulp-clean-css');
 var concat = require('gulp-concat');
 var eslint = require('gulp-eslint');
@@ -13,6 +12,7 @@ var rimraf = require('rimraf');
 var sass = require('gulp-sass');
 var scsslint = require('gulp-scss-lint');
 var source = require('vinyl-source-stream');
+var streamify = require('gulp-streamify');
 var uglify = require('gulp-uglify');
 
 var paths = [
@@ -106,10 +106,13 @@ gulp.task('watch', ['copy', 'sass'], function () {
     gulp.watch(scssPaths, ['sass']);
 });
 
-gulp.task('start',['rimraf', 'watch'], function () {
+gulp.task('start', ['rimraf', 'watch'], function () {
     nodemon({
         script: 'server.js',
-        watch: 'server.js'
+        watch: 'server.js',
+        env: {
+            'NODE_ENV': 'development'
+        }
     });
 });
 
