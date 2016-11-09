@@ -9,6 +9,7 @@ import Loading from 'components/layout/loading';
 
 // COMMON COMPONENTS
 import User from 'components/common/user';
+import RenderWithDelay from 'components/common/render-with-delay';
 
 class Users extends React.Component {
 
@@ -41,10 +42,19 @@ class Users extends React.Component {
         var user = this.state.users[index];
 
         return (
-            <div key={index} className="users--grid-item">
-                <User wait={index * 50} displayName={user.displayName} />
-            </div>
+            <RenderWithDelay {...this.getRenderWithDelayProps(index)}>
+                <User displayName={user.displayName} />
+            </RenderWithDelay>
         );
+    }
+
+    getRenderWithDelayProps(index) {
+        return {
+            className: 'users--grid-item',
+            animation: 'drop',
+            key: index,
+            wait: index * 50
+        };
     }
 
     loadUsers() {

@@ -15,7 +15,6 @@ class Card extends React.Component {
     constructor() {
         super();
 
-        this.timeout = null;
         this.state = {
             hidden: true
         };
@@ -24,31 +23,17 @@ class Card extends React.Component {
         this.isReallyOld.bind(this);
     }
 
-    componentWillMount() {
-        this.timeout = this.props.wait; //TODO: extract timeout functionality to a new wrapper
-
-        setTimeout(function () {
-            this.show();
-        }.bind(this), this.props.wait);
-    }
-
-    componentWillUnmount() {
-        this.timeout = null;
-    }
-
     render() {
-        var cardData = this.props.cardData;
-
         return (
             <div className={this.getClass()}>
                 <Button {...this.getButtonProps()}>✖</Button>
                 <div className="card--info">
-                    <div className="card--name">{cardData.name}</div>
+                    <div className="card--name">{this.props.name}</div>
                     <div className="card--info-label">Reason</div>
-                    <div className="card--category">{cardData.cat}</div>
+                    <div className="card--category">{this.props.cat}</div>
                     <div className="card--info-label">Date</div>
                     <div className={this.getDateClass()}>
-                        {moment(cardData.date, 'MM/DD/YYYY, HH:mm').format('DD MMM YYYY, HH:mm')}
+                        {moment(this.props.date, 'MM/DD/YYYY, HH:mm').format('DD MMM YYYY, HH:mm')}
                     </div>
                 </div>
             </div>
@@ -58,7 +43,6 @@ class Card extends React.Component {
     getClass() {
         return classNames({
             'card': true,
-            'card_displayed': !this.state.hidden,
             'card_really-old': this.isReallyOld()
         });
     }
@@ -79,33 +63,23 @@ class Card extends React.Component {
     }
 
     isReallyOld() {
-        return moment(this.props.cardData.date, 'MM/DD/YYYY, HH:mm').isBefore(moment().subtract(5, 'weeks'));
+        return moment(this.props.date, 'MM/DD/YYYY, HH:mm').isBefore(moment().subtract(5, 'weeks'));
     }
 
     removeCard() {
-        var cardData = this.props.cardData;
         var promptResponse = prompt('Why are you removing this card?', 'Payed');
 
-        if (!_.isEmpty(cardData) && promptResponse) {
-            firebaseServiceCaller.delete('cards', cardData, promptResponse);
-        }
-    }
-
-    show() {
-        if (this.timeout !== null) {
-            this.setState({hidden: false});
+        if (!_.isEmpty(this.props) && promptResponse) {
+            firebaseServiceCaller.delete('cards', this.props, promptResponse);
         }
     }
 }
 
 Card.propTypes = {
-    cardData: React.PropTypes.shape({
-        cat: React.PropTypes.string.isRequired,
-        date: React.PropTypes.string.isRequired,
-        id: React.PropTypes.string.isRequired,
-        name: React.PropTypes.string.isRequired
-    }).isRequired,
-    wait: React.PropTypes.number
+    cat: React.PropTypes.string.isRequired,
+    date: React.PropTypes.string.isRequired,
+    id: React.PropTypes.string.isRequired,
+    name: React.PropTypes.string.isRequired
 };
 
 export default Card;

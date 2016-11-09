@@ -7,6 +7,9 @@ import { instance as firebaseStore } from 'lib/firebase-store';
 // LAYOUT COMPONENTS
 import Loading from 'components/layout/loading';
 
+// COMMON COMPONENTS
+import RenderWithDelay from 'components/common/render-with-delay';
+
 class Log extends React.Component {
 
     constructor() {
@@ -26,14 +29,28 @@ class Log extends React.Component {
         return (
             <Loading loading={!this.state.logs.length}>
                 <ul className="log">
-                    {this.state.logs.map(this.renderLog)}
+                    {this.state.logs.map(this.renderLog.bind(this))}
                 </ul>
             </Loading>
         );
     }
 
     renderLog(log, index) {
-        return <li className="log--item" key={index}> {log.entry} - Movement: {log.type} - Date: {log.date} </li>;
+        return (
+            <RenderWithDelay {...this.getRenderWithDelayProps(index)}>
+                <li className="log--item">
+                    {log.entry} - Movement: {log.type} - Date: {log.date}
+                </li>
+            </RenderWithDelay>
+        );
+    }
+
+    getRenderWithDelayProps(index) {
+        return {
+            animation: 'typewrite',
+            key: index,
+            wait: index * 100
+        };
     }
 
     loadLogs() {

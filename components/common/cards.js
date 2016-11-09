@@ -9,6 +9,7 @@ import Loading from 'components/layout/loading';
 
 // COMMON COMPONENTS
 import Card from 'components/common/card';
+import RenderWithDelay from 'components/common/render-with-delay';
 
 class Cards extends React.Component {
 
@@ -36,12 +37,17 @@ class Cards extends React.Component {
     }
 
     renderCard (card, index) {
-        return <Card {...this.getCardProps(card, index)} />;
+        return (
+            <RenderWithDelay {...this.getRenderWithDelayProps(index)}>
+                <Card {...card} />
+            </RenderWithDelay>
+        );
     }
 
-    getCardProps(card, index) {
+    getRenderWithDelayProps(index) {
         return {
-            cardData: card,
+            className: 'cards--item',
+            animation: 'slide-fade',
             key: index,
             wait: index * 100
         };
